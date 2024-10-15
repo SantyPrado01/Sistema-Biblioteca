@@ -7,7 +7,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private LOGIN_URL = 'http://localhost:4200/auth/login';
+  private LOGIN_URL = 'http://localhost:3000/auth/login';
   private tokenKey = 'authToken';
 
   private REFRESH_URL = 'http://localhost:3000/api/v1/auth/refresh';
