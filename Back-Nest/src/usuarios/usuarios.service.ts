@@ -50,4 +50,18 @@ export class UsuariosService {
     socio.eliminado = true;  // Borrado lógico
     await this.usuarioRepository.save(socio);
   }
+
+  async getUsername(nombreUsuario:string){
+
+    const userFound =await this.usuarioRepository.findOne({
+        where:{
+            nombreUsuario
+        }
+    })
+
+    if (!userFound){
+        return null;
+    }
+    return userFound
+}
 }

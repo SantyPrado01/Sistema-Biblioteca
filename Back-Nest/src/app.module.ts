@@ -6,6 +6,9 @@ import { PrestamosModule } from './prestamos/prestamos.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LibrosModule } from './libros/libros.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -15,14 +18,14 @@ import { UsuariosModule } from './usuarios/usuarios.module';
       port: 3306,
       username: 'root',
       password:'Nfr06950', //1008 en Windows //Nfr06950 en Mac
-      database: 'corsacorsql',
+      database: 'biblioteca',
       entities: [__dirname + '/**/*.entity{.ts,.js}'], //Podemos leer cualquier archivo entity
       synchronize:true,
     }),
     LibrosModule, 
     SociosModule, 
-    PrestamosModule, UsuariosModule],
-  controllers: [AppController],
-  providers: [AppService],
+    PrestamosModule, UsuariosModule, AuthModule],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService],
 })
 export class AppModule {}

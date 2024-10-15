@@ -39,11 +39,11 @@ export class SociosService {
   }
 
   async remove(id: number): Promise<void> {
-    const libro = await this.socioRepository.findOneBy({ socioId: id });
-    if (!libro) {
+    const socio = await this.socioRepository.findOneBy({ socioId: id });
+    if (!socio) {
       throw new Error('Socio no encontrado');
     }
-    libro.eliminado = true;  // Borrado lógico
-    await this.socioRepository.save(libro);
+    socio.eliminado = true;  // Borrado lógico
+    await this.socioRepository.save(socio);
   }
 }

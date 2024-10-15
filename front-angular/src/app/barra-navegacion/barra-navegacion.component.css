@@ -1,0 +1,51 @@
+.navbar {
+    background-color: #007ACC; /* Color celeste/azul similar al logo de VS Code */
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-brand a {
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+  }
+  
+  .navbar-nav {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-item {
+    margin-left: 1rem;
+  }
+  
+  .nav-link {
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+  }
+  
+  .dropdown-menu {
+    background-color: white;
+    border: none;
+  }
+  
+  .dropdown-item {
+    color: #007ACC; /* Detalles en azul */
+  }
+  
+  .dropdown-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .nav-link:hover, .dropdown-toggle:hover {
+    color: #e0e0e0;
+  }
+  
+  .fa-home {
+    font-size: 1.5rem;
+  }
+  

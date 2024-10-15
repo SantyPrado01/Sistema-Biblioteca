@@ -6,18 +6,14 @@ import { Prestamo } from './entities/prestamo.entity';
 import { Repository } from 'typeorm';
 import { Socio } from 'src/socios/entities/socio.entity';
 import { Libro } from 'src/libros/entities/libro.entity';
+import { SociosService } from 'src/socios/socios.service';
 
 @Injectable()
 export class PrestamosService {
   constructor( 
-  @InjectRepository(Prestamo)
-  private readonly prestamoRepository: Repository<Prestamo>,
-
-  @InjectRepository(Libro)
-  private readonly libroRepository: Repository<Libro>,
-
-  @InjectRepository(Socio)
-  private readonly socioRepository: Repository<Socio>, 
+    @InjectRepository(Prestamo) private readonly prestamoRepository: Repository<Prestamo>,
+    @InjectRepository(Socio) private readonly socioRepository: Repository<Socio>,  // Inyectar LibroRepository
+    private readonly sociosService: SociosService,
 ) {}
 
   async create(createPrestamoDto: CreatePrestamoDto){
