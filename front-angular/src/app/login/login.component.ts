@@ -12,13 +12,13 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  nombreUsuario: string = '';
+  contraseña: string = '';
 
   constructor(private authService: AuthService, private router: Router){}
 
   inicioSesion(): void {
-    this.authService.login(this.username, this.password).subscribe({
+    this.authService.login(this.nombreUsuario, this.contraseña).subscribe({
       next: (response)=> {
         const token = response.token;
         const payload = JSON.parse(atob(token.split('.')[1]));
