@@ -19,6 +19,7 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router){}
 
   inicioSesion(): void {
+    console.log(this.nombreUsuario, this.contrasena)
     this.authService.login(this.nombreUsuario, this.contrasena).subscribe({
       next: (response)=> {
         const token = response.token;

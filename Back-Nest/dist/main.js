@@ -12,7 +12,6 @@ async function bootstrap() {
     });
     app.useGlobalPipes(new common_1.ValidationPipe());
     await app.listen(3000);
-    await app.listen(3000);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
