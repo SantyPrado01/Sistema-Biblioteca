@@ -1,1 +1,30 @@
-<p>listar-usuario works!</p>
+<div class="app-container">
+    <app-barra-navegacion></app-barra-navegacion> <!-- Tu barra de navegación -->
+    <div class="content">
+      <div class="users-container">
+        <h2>Lista de Usuarios</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre de Usuario</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.nombreUsuario }}</td>
+              <td>{{ user.rol }}</td>
+              <td>{{ user.rol }}</td>
+              <td>
+                <a [routerLink]="['/users/edit', user.id]" class="btn-edit">✏️</a>
+                <button class="btn-delete" (click)="deleteUser(user.id)">🗑️</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

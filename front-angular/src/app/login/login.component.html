@@ -1,20 +1,25 @@
 <div class="login-container">
   <div class="login-left">
-    <h2>Bienvenido de Nuevo</h2>
-    <p>Por favor ingrese sus credenciales</p>
-    <form (ngSubmit)="inicioSesion()">
-      <div class="form-group">
-        <label for="email">Nombre de Usuario</label>
-        <input type="email" id="email" [(ngModel)]="nombreUsuario" name="email" required />
-      </div>
-      <div class="form-group">
-        <label for="password">Contrasena</label>
-        <input type="password" id="password" [(ngModel)]="contrasena" name="password" required />
-      </div>
-      <button type="submit" class="btn btn-login">Iniciar Sesion</button>
-    </form>
+    <div class="card">
+      <h2>Iniciar Sesión</h2>
+      <p>Por favor ingrese sus credenciales</p>
+      <form (ngSubmit)="inicioSesion()">
+        <div class="form-group">
+          <label for="email">Nombre de Usuario</label>
+          <input type="email" id="email" [(ngModel)]="nombreUsuario" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Contrasena</label>
+          <input type="password" id="password" [(ngModel)]="contrasena" name="password" required />
+        </div>
+        <button type="submit" class="btn btn-login">Iniciar Sesion</button>
+      </form>
+    </div>
   </div>
   <div class="login-right">
-    <h3>Sistema de Biblioteca Fictisia</h3>
+    <div class="image-container">
+      <h1>Bienvenido<br> Sistema Ficticio Biblioteca Nacional</h1>
+      <img src="./fondo-login.png">
+    </div>
   </div>
 </div>

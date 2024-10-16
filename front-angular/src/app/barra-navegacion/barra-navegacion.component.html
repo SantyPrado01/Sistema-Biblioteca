@@ -1,48 +1,50 @@
-<nav class="navbar">
-    <div class="navbar-brand">
-      <a routerLink="/">
-        <i class="fas fa-home"></i> <!-- Símbolo de casa -->
+<div class="navbar">
+  <ul class="nav-list">
+    <li class="nav-item">
+      <a href="/inicio">
+        <i class="fas fa-home"></i> Inicio
       </a>
-    </div>
-  
-    <ul class="navbar-nav">
-      <!-- Perfil -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Perfil
-        </a>
-        <div class="dropdown-menu" aria-labelledby="profileDropdown">
-          <a class="dropdown-item" href="#">Ver Perfil</a>
-          <a class="dropdown-item" href="#">Cerrar Sesión</a>
-        </div>
-      </li>
-  
-      <!-- Libros -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="booksDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Libros
-        </a>
-        <div class="dropdown-menu" aria-labelledby="booksDropdown">
-          <a class="dropdown-item" routerLink="/libros/nuevo">Nuevo Libro</a>
-          <a class="dropdown-item" routerLink="/libros/listar">Listar Libros</a>
-        </div>
-      </li>
-  
-      <!-- Socios -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="sociosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Socios
-        </a>
-        <div class="dropdown-menu" aria-labelledby="sociosDropdown">
-          <a class="dropdown-item" routerLink="/socios/nuevo">Nuevo Socio</a>
-          <a class="dropdown-item" routerLink="/socios/listar">Listar Socios</a>
-        </div>
-      </li>
-  
-      <!-- Préstamos -->
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/prestamos">Préstamos de Libros</a>
-      </li>
-    </ul>
-  </nav>
-  
+    </li>
+    <li class="nav-item">
+      <a href="javascript:void(0);" class="dropdown-btn" (click)="toggleDropdown('librosDropdown')">
+        <i class="fas fa-book"></i> Libros <span class="arrow">▼</span>
+      </a>
+      <ul class="dropdown-container" [class.show]="isDropdownOpen.librosDropdown">
+        <li><a href="/nuevo-libro">Nuevo libro</a></li>
+        <li><a href="/listar-libros">Listar libros</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a href="javascript:void(0);" class="dropdown-btn" (click)="toggleDropdown('sociosDropdown')">
+        <i class="fas fa-users"></i> Socios <span class="arrow">▼</span>
+      </a>
+      <ul class="dropdown-container" [class.show]="isDropdownOpen.sociosDropdown">
+        <li><a href="/socios/nuevo">Nuevo socio</a></li>
+        <li><a href="/listar-socios">Listar socios</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a href="javascript:void(0);" class="dropdown-btn" (click)="toggleDropdown('prestamosDropdown')">
+        <i class="fas fa-book-open"></i> Préstamos <span class="arrow">▼</span>
+      </a>
+      <ul class="dropdown-container" [class.show]="isDropdownOpen.prestamosDropdown">
+        <li><a href="/nuevo-prestamo">Nuevo préstamo</a></li>
+        <li><a href="/listar-prestamos">Listar préstamos</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a href="javascript:void(0);" class="dropdown-btn" (click)="toggleDropdown('usuariosDropdown')">
+        <i class="fas fa-book"></i> Usuarios <span class="arrow">▼</span>
+      </a>
+      <ul class="dropdown-container" [class.show]="isDropdownOpen.usuariosDropdown">
+        <li><a href="/usuario/nuevo">Nuevo Usuario</a></li>
+        <li><a href="/usuario/listar">Listar Usuarios</a></li>
+      </ul>
+    <!-- Cerrar sesión al final -->
+    <li class="nav-item">
+      <a href="/cerrar-sesion">
+        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+      </a>
+    </li>
+  </ul>
+</div>

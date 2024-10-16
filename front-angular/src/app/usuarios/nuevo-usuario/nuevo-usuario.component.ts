@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { UsuarioService } from '../service/usuario.service'; // Asegúrate de que el servicio esté correctamente importado
+import { FormsModule } from '@angular/forms'; // Asegúrate de que el servicio esté correctamente importado
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoginService } from '../../login/service/login.service';
+import { BarraNavegacionComponent } from '../../barra-navegacion/barra-navegacion.component';
 
 @Component({
   selector: 'app-create-user',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, BarraNavegacionComponent],
   templateUrl: './nuevo-usuario.component.html',
   styleUrls: ['./nuevo-usuario.component.css']
 })

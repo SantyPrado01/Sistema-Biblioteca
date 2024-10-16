@@ -1,51 +1,65 @@
 .navbar {
-    background-color: #007ACC; /* Color celeste/azul similar al logo de VS Code */
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .navbar-brand a {
-    color: white;
-    font-size: 1.5rem;
-    text-decoration: none;
-  }
-  
-  .navbar-nav {
-    list-style-type: none;
-    display: flex;
-    align-items: center;
-  }
-  
-  .nav-item {
-    margin-left: 1rem;
-  }
-  
-  .nav-link {
-    color: white;
-    font-size: 1rem;
-    text-decoration: none;
-  }
-  
-  .dropdown-menu {
-    background-color: white;
-    border: none;
-  }
-  
-  .dropdown-item {
-    color: #007ACC; /* Detalles en azul */
-  }
-  
-  .dropdown-item:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .nav-link:hover, .dropdown-toggle:hover {
-    color: #e0e0e0;
-  }
-  
-  .fa-home {
-    font-size: 1.5rem;
-  }
-  
+  width: 200px;
+  background-color: #444; /* Color gris medio oscuro */
+  color: white;
+  position: fixed; /* Para que esté fijo en el lado izquierdo */
+  height: 100%; /* Ocupa toda la altura */
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* Permitir que la lista crezca y use el espacio disponible */
+  display: flex;
+  flex-direction: column; /* Asegurar que los items estén en columna */
+  justify-content: space-between; /* Distribuir el espacio entre los items */
+}
+
+.nav-item {
+  position: relative;
+  margin: 0.8em 0; /* Ajustar el margen para mejor separación */
+}
+
+.nav-item a {
+  display: block;
+  padding: 1em;
+  color: white; /* Letras en blanco */
+  text-decoration: none;
+}
+
+.dropdown-container {
+  display: none; /* Oculto por defecto */
+  background-color: #666; /* Un poco más claro que el fondo de la navbar */
+}
+
+.dropdown-container.show {
+  display: block; /* Mostrar cuando se aplica la clase 'show' */
+}
+
+.dropdown-container li {
+  padding: 10px 15px; /* Espaciado para los elementos de la lista */
+}
+
+.dropdown-container li a {
+  color: white; /* Letras en blanco */
+}
+
+.dropdown-btn {
+  cursor: pointer; /* Cambiar cursor a puntero */
+}
+
+.arrow {
+  margin-left: 5px; /* Espacio entre el texto y la flecha */
+  font-size: 0.8em; /* Tamaño de la flecha */
+  vertical-align: middle; /* Alinear la flecha verticalmente */
+  color: white; /* Color de la flecha */
+}
+
+/* Estilo para el botón "Cerrar sesión" */
+.nav-item:last-child {
+  margin-top: auto; /* Empujar "Cerrar sesión" al final */
+  margin-bottom: 1em; /* Espaciado inferior para separar del borde */
+}
