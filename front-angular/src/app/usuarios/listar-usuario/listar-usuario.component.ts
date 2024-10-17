@@ -2,40 +2,69 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { BarraNavegacionComponent } from '../../barra-navegacion/barra-navegacion.component';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { UsuarioService } from '../service/usuario.service';
+import { Usuario } from '../models/usuario.models';
 
 @Component({
   selector: 'app-listar-usuario',
   standalone: true,
   imports: [BarraNavegacionComponent, CommonModule, RouterModule],
   templateUrl: './listar-usuario.component.html',
-  styleUrl: './listar-usuario.component.css'
+  styleUrls: ['./listar-usuario.component.css']
 })
 export class ListarUsuarioComponent {
-  users: any[] = [];
+  usuarios: Usuario[] = [];
+  usuariosFiltrados: Usuario[] = [];
+  isLoading = true;
 
-  constructor(private http: HttpClient) {}
+  constructor(private usuarioService: UsuarioService, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.cargarUsuarios();
   }
 
-  loadUsers() {
-    this.http.get<any[]>('/api/users').subscribe(data => {
-      this.users = data;
+  cargarUsuarios(): void {
+    this.usuarioService.findAll().subscribe({
+      next: (data: Usuario[]) => {
+        this.usuarios = data;
+        this.usuariosFiltrados = data; // Inicialmente mostramos todos los usuarios
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar los usuarios', err);
+        this.isLoading = false;
+      }
     });
   }
 
-  editUser(id: number) {
-    console.log('Edit user', id);
-  }
+  filtrarUsuarios(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
 
-  deleteUser(id: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-      this.http.delete(`/api/users/${id}`).subscribe(() => {
-        this.loadUsers(); // Recarga la lista de usuarios tras la eliminación
-      });
+    if (value === 'activos') {
+      this.usuariosFiltrados = this.usuarios.filter(usuario => !usuario.eliminado);
+    } else {
+      this.usuariosFiltrados = this.usuarios; // Muestra todos los usuarios
     }
   }
 
+  eliminarUsuario(usuario: Usuario) {
+    if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+      const usuarioId = usuario.usuarioId;
+
+      this.http.patch<Usuario>(`http://localhost:3000/usuarios/${usuarioId}`, { eliminado: true }).subscribe({
+        next: (response) => {
+          console.log('Usuario eliminado con éxito:', response);
+          alert('Usuario eliminado con éxito');
+          this.cargarUsuarios(); // Recarga la lista de usuarios después de eliminar uno
+        },
+        error: (err) => {
+          console.log('ID del Usuario:', usuarioId);
+          console.error('Error al eliminar el Usuario:', err);
+        }
+      });
+    } else {
+      console.log('Operación cancelada');
+    }
+  }
 }

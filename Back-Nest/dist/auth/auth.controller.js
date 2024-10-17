@@ -38,7 +38,7 @@ let AuthController = class AuthController {
         return this.usuarioService.findOne(+id);
     }
     update(id, updateUsuarioDto) {
-        return this.usuarioService.update(+id, updateUsuarioDto);
+        return this.authService.update(+id, updateUsuarioDto);
     }
 };
 exports.AuthController = AuthController;

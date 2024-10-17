@@ -1,1 +1,40 @@
-<p>listar-socio works!</p>
+<div class="app-container">
+    <app-barra-navegacion></app-barra-navegacion> <!-- Tu barra de navegación -->
+    <div class="content">
+      <div class="users-container">
+        <h2>Lista de Socios</h2>      
+        <!-- Opciones de filtro -->
+        <div class="filter-options">
+          <label for="user-filter">Mostrar: </label>
+          <select id="user-filter" (change)="filtrarSocios($event)">
+            <option value="todos">Todos</option>
+            <option value="activos">Activos</option>
+          </select>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Apellido</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Telefono</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let socio of sociosFiltrados">
+              <td>{{ socio.apellido }}</td>
+              <td>{{ socio.nombre }}</td>
+              <td>{{ socio.email }}</td>
+              <td>{{ socio.telefono }}</td>
+              <td>
+                <a class="btn-edit" [routerLink]="['/socios/editar', socio.socioId]">✏️</a>
+                <button class="btn-delete" (click)="eliminarSocio(socio)">🗑️</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

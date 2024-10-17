@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrl: './nuevo-socio.component.css'
 })
 export class NuevoSocioComponent {
+  socioId: number = 0;
   apellido: string = '';
   nombre: string = '';
   email: string = '';
@@ -23,6 +24,7 @@ export class NuevoSocioComponent {
 
   crearSocio(): void{
     const nuevoSocio = {
+      socioId: this.socioId,
       apellido: this.apellido,
       nombre: this.nombre,
       email: this.email,

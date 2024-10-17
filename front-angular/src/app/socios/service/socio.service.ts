@@ -7,7 +7,7 @@ import { Socio } from '../models/socios.models';
   providedIn: 'root'
 })
 export class SocioService {
-  private baseUrl = 'http://localhost:3000/socios';  // Cambia esta URL a la de tu API
+  private baseUrl = 'http://localhost:3000/socios';  
 
   constructor(private http: HttpClient) { }
 

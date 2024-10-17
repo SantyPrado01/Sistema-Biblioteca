@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 export declare class SociosService {
     private readonly socioRepository;
     constructor(socioRepository: Repository<Socio>);
-    create(createSocioDto: CreateSocioDto): Promise<HttpException>;
+    create(createSocioDto: CreateSocioDto): Promise<Socio | HttpException>;
     findAll(): Promise<Socio[]>;
     findOne(id: number): Promise<Socio>;
     update(id: number, updateSocioDto: UpdateSocioDto): Promise<Socio>;

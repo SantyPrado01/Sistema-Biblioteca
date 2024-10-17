@@ -58,4 +58,15 @@
   .btn-delete {
     color: red; /* Rojo para eliminar */
   }
-  
+
+  .filter-options select {
+    width: 10%;
+    height: 2rem;
+    font-size: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .filter-options{
+    margin-bottom: 1em;
+  }

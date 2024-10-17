@@ -19,6 +19,17 @@ let AuthService = class AuthService {
         this.userService = userService;
         this.jwtService = jwtService;
     }
+    async update(id, updateUsuarioDto) {
+        const user = await this.userService.findOne(id);
+        if (!user) {
+            throw new common_1.HttpException('Usuario no encontrado', common_1.HttpStatus.NOT_FOUND);
+        }
+        if (updateUsuarioDto.contrasena) {
+            const hashedPassword = await bcrypt.hash(updateUsuarioDto.contrasena, 10);
+            updateUsuarioDto.contrasena = hashedPassword;
+        }
+        return await this.userService.update(id, updateUsuarioDto);
+    }
     async register({ nombreUsuario, contrasena, rol, eliminado }) {
         const user = await this.userService.getUsername(nombreUsuario);
         if (user) {
@@ -42,7 +53,7 @@ let AuthService = class AuthService {
         if (!isPasswordValid) {
             return new common_1.HttpException('Contraseña Incorrecta', common_1.HttpStatus.NOT_ACCEPTABLE);
         }
-        const payload = { username: user.nombreUsuario, role: user.rol };
+        const payload = { username: user.nombreUsuario, role: user.rol, eliminado: user.eliminado };
         const token = await this.jwtService.signAsync(payload);
         return {
             token,

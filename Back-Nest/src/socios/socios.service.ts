@@ -16,9 +16,11 @@ export class SociosService {
           nombre: createSocioDto.nombre
       }
     })
-    if (userFound){
+    if(userFound){
       return new HttpException('El Socio ya existe. Prueba nuevamente.', HttpStatus.CONFLICT)
     }
+    const newSocio = this.socioRepository.create(createSocioDto);
+    return await this.socioRepository.save(newSocio);
   }
 
   findAll() {

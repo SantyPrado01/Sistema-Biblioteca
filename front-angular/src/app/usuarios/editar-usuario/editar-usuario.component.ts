@@ -1,41 +1,79 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BarraNavegacionComponent } from '../../barra-navegacion/barra-navegacion.component';
-import { LoginService } from '../../login/service/login.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { UsuarioService } from '../service/usuario.service';
 
 @Component({
   selector: 'app-editar-usuario',
   standalone: true,
   imports: [BarraNavegacionComponent, CommonModule, FormsModule],
   templateUrl: './editar-usuario.component.html',
-  styleUrl: './editar-usuario.component.css'
+  styleUrls: ['./editar-usuario.component.css'] // Asegúrate de que sea 'styleUrls'
 })
-export class EditarUsuarioComponent {
+export class EditarUsuarioComponent implements OnInit {
   nombreUsuario: string = '';
   contrasena: string = '';
   rol: string = '';
   eliminado: boolean = false;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(
+    private usuarioService: UsuarioService, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private http: HttpClient
+  ) {}
 
-  crearUsuario(): void {
-    const nuevoUsuario = {
-      nombreUsuario: this.nombreUsuario,
-      contrasena: this.contrasena,
-      rol: this.rol,
-      eliminado: this.eliminado,
-    };
+  usuario: any = {};
 
-    this.loginService.register(nuevoUsuario).subscribe({
-      next: () => {
-        this.router.navigate(['/usuarios']);
+  ngOnInit() {
+    const usuarioId = this.route.snapshot.paramMap.get('id');
+    if (usuarioId) {
+      this.cargarUsuario(usuarioId);
+    }
+  }
+
+  cargarUsuario(usuarioId: string): void {
+    this.http.get<any>(`http://localhost:3000/usuarios/${usuarioId}`).subscribe({
+      next: (data) => {
+        this.usuario = data;
+        this.nombreUsuario = data.nombreUsuario;
+        this.rol = data.rol;
+        console.log('Datos del usuario cargados:', data);
       },
       error: (err) => {
-        console.error('Error al guardar el empleado:', err);
+        console.error('Error al cargar los datos del usuario', err);
       }
     });
   }
 
+  actualizarUsuario() {
+    const usuarioId = this.route.snapshot.paramMap.get('id');
+    if (usuarioId) {
+      const usuarioActualizado = {
+        nombreUsuario: this.nombreUsuario,
+        contrasena: this.contrasena,
+        rol: this.rol
+      };
+
+      this.http.patch<any>(`http://localhost:3000/auth/${usuarioId}`, usuarioActualizado).subscribe({
+        next: (response) => {
+          console.log('Usuario actualizado con éxito:', response);
+          alert('Usuario actualizado con éxito');
+          this.router.navigate(['/usuario/listar']);
+        },
+        error: (err) => {
+          console.error('Error al actualizar el usuario:', err);
+        }
+      });
+    }
+  }
+
+  cancelar() {
+    alert('Usuario NO actualizado, operación cancelada.');
+    this.router.navigate(['/usuario/listar']);
+  }
 }
+

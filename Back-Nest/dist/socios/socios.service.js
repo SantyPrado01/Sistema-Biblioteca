@@ -30,6 +30,8 @@ let SociosService = class SociosService {
         if (userFound) {
             return new common_1.HttpException('El Socio ya existe. Prueba nuevamente.', common_1.HttpStatus.CONFLICT);
         }
+        const newSocio = this.socioRepository.create(createSocioDto);
+        return await this.socioRepository.save(newSocio);
     }
     findAll() {
         return this.socioRepository.find();

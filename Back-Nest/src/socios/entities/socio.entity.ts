@@ -3,6 +3,7 @@ import { Prestamo } from '../../prestamos/entities/prestamo.entity';
 
 @Entity()
 export class Socio {
+  
   @PrimaryGeneratedColumn()
   socioId: number;
 

@@ -9,16 +9,18 @@ import { InicioDefectoComponent } from './inicio/inicio-defecto/inicio-defecto.c
 import { NuevoUsuarioComponent } from './usuarios/nuevo-usuario/nuevo-usuario.component';
 import { ListarUsuarioComponent } from './usuarios/listar-usuario/listar-usuario.component';
 import { EditarUsuarioComponent } from './usuarios/editar-usuario/editar-usuario.component';
+import { EditarSocioComponent } from './socios/editar-socio/editar-socio.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'inicio', component: InicioDefectoComponent },
     { path: 'usuario/nuevo', component: NuevoUsuarioComponent },
     { path: 'usuario/listar', component: ListarUsuarioComponent },
-    { path: 'usuario/editar', component: EditarUsuarioComponent },
+    { path: 'usuario/editar/:id', component: EditarUsuarioComponent },
     { path: 'libros/nuevo', component: NuevoLibrosComponent },
     { path: 'libros/listar', component: ListarLibrosComponent },
     { path: 'socios/nuevo', component: NuevoSocioComponent },
     { path: 'socios/listar', component: ListarSocioComponent },
+    { path: 'socios/editar/:id', component: EditarSocioComponent },
     { path: 'prestamos', component: NuevoPrestamoComponent },
 ];

@@ -19,20 +19,29 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router){}
 
   inicioSesion(): void {
-    console.log(this.nombreUsuario, this.contrasena)
+    console.log(this.nombreUsuario, this.contrasena);
     this.authService.login(this.nombreUsuario, this.contrasena).subscribe({
-      next: (response)=> {
-        const token = response.token;
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const role = payload.role;
-        if(role === 'Administrador') {
-          this.router.navigate(['/inicioAdmin'])
-        }else {
-          this.router.navigate(['/inicio'])
+        next: (response) => {
+            if (response.token) {
+                const token = response.token;
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const eliminado = payload.eliminado;
+                if (eliminado) {
+                    alert('Tu cuenta ha sido desactivada. No puedes iniciar sesión.');
+                } else {
+                    localStorage.setItem('token', token);
+                    this.router.navigate(['/inicio']);
+                }
+            } else {
+                alert('Error: no se pudo iniciar sesión. Verifica tus credenciales.');
+            }
+        },
+        error: (err) => {
+            console.error('Login Error', err);
+            alert('Usuario o contraseña incorrectos.'); 
         }
-      },
-      error: (err) => console.error('Login Error', err)
-    })
-  }
+    });
+}
 
 }
+
