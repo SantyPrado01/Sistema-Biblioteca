@@ -26,4 +26,8 @@ export class SocioService {
   update(id: number, socio: Socio): Observable<Socio> {
     return this.http.put<Socio>(`${this.baseUrl}/${id}`, socio);
   }
+  
+  buscarSociosPorNombre(query: string): Observable<Socio[]> {
+    return this.http.get<Socio[]>(`${this.baseUrl}?nombre_like=${query}`); // Ajusta la consulta según tu API
+  }
 }

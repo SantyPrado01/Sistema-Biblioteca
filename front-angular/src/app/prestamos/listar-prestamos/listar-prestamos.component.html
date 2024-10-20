@@ -1,0 +1,49 @@
+<div class="app-container">
+    <app-barra-navegacion></app-barra-navegacion> <!-- Tu barra de navegación -->
+    <div class="content">
+      <div class="users-container">
+        <h2>Lista de Libros</h2>
+  
+        <!-- Opciones de filtro -->
+        <div class="filter-options">
+            <label for="user-filter">Mostrar: </label>
+            <div class="select-container">
+              <select id="user-filter" (change)="filtrarPrestamos($event)">
+                <option value="pendientes">Pendientes</option>
+                <option value="devueltos">Devueltos</option>
+                <option value="">Todos</option>
+              </select>
+            </div>
+            <input type="text" [(ngModel)]="searchQuery"  placeholder="Buscar por nombre o autor" />
+        </div>
+          
+        <table>
+          <thead>
+            <tr>
+              <th>Codigo de Prestamo</th>
+              <th>Libro</th>
+              <th>Socio</th>
+              <th>Fecha de Prestamo</th>
+              <th>Fecha de Devolucion</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prestamo of prestamosFiltrados">
+                <td>{{ prestamo.prestamoId }}</td>
+                <td>{{ prestamo.libro.titulo }} - {{ prestamo.libro.autor }}</td> <!-- Título y autor del libro -->
+                <td>{{ prestamo.socio.nombre }} {{ prestamo.socio.apellido }}</td> <!-- Nombre completo del socio -->
+                <td>{{ prestamo.fechaPrestamo | date: 'dd/MM/yyyy' }}</td> <!-- Formato de fecha -->
+                <td>{{ prestamo.fechaDevolucion | date: 'dd/MM/yyyy' }}</td> <!-- Formato de fecha -->
+                <td>
+                <button class="btn-edit" (click)="marcarDevolucion(prestamo.prestamoId)">✅</button>
+                <button class="btn-delete" >🗑️</button>
+                <button class="btn-edit" >📝</button> 
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

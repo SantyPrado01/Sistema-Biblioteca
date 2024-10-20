@@ -9,6 +9,16 @@ import { Libro } from '../models/libros.models';
 export class LibroService {
   private baseUrl = 'http://localhost:3000/libros';  // Cambia esta URL a la de tu API
 
+  private libroSeleccionado: Libro | null = null;
+
+  setLibro(libro: Libro) {
+    this.libroSeleccionado = libro;
+  }
+
+  getLibro(): Libro | null {
+    return this.libroSeleccionado;
+  }
+  
   constructor(private http: HttpClient) { }
 
   create(libro: Libro): Observable<Libro> {

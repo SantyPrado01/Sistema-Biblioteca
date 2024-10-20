@@ -1,1 +1,47 @@
-<p>listar-libros works!</p>
+<div class="app-container">
+    <app-barra-navegacion></app-barra-navegacion> <!-- Tu barra de navegación -->
+    <div class="content">
+      <div class="users-container">
+        <h2>Lista de Libros</h2>
+  
+        <!-- Opciones de filtro -->
+        <div class="filter-options">
+            <label for="user-filter">Mostrar: </label>
+            <div class="select-container">
+              <select id="user-filter" (change)="filtrarLibros($event)">
+                <option value="todos">Todos</option>
+                <option value="activos">Disponibles</option>
+              </select>
+            </div>
+            <input type="text" [(ngModel)]="searchQuery" (input)="buscarLibros()" placeholder="Buscar por nombre o autor" />
+        </div>
+          
+        <table>
+          <thead>
+            <tr>
+              <th>Titulo</th>
+              <th>Autor</th>
+              <th>Estado</th>
+              <th>Fecha de Devolucion</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let libro of librosFiltrados">
+              <td>{{ libro.titulo }}</td>
+              <td>{{ libro.autor }}</td>
+              <td>{{ libro.disponible ? 'Disponible' : 'No Disponible' }}</td>
+              <td>{{ obtenerFechaDevolucion(libro.libroId) ? (obtenerFechaDevolucion(libro.libroId) | date:'shortDate') : '' }}</td>
+
+              <td>
+                <a class="btn-edit">✏️</a>
+                <button class="btn-delete" (click)="eliminarLibro(libro)">🗑️</button>
+                <button class="btn-edit" (click)="prestamoNuevo(libro)">📝</button> 
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

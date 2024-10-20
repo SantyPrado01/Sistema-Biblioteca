@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Libro } from '../../libros/entities/libro.entity';
 import { Socio } from '../../socios/entities/socio.entity';
 
@@ -16,9 +16,10 @@ export class Prestamo {
   @Column()
   fechaPrestamo: Date;
 
-  @Column({ nullable: true })
+  @Column()
   fechaDevolucion: Date;
 
   @Column({ default: false })
   devuelto: boolean;
+
 }

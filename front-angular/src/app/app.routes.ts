@@ -10,6 +10,7 @@ import { NuevoUsuarioComponent } from './usuarios/nuevo-usuario/nuevo-usuario.co
 import { ListarUsuarioComponent } from './usuarios/listar-usuario/listar-usuario.component';
 import { EditarUsuarioComponent } from './usuarios/editar-usuario/editar-usuario.component';
 import { EditarSocioComponent } from './socios/editar-socio/editar-socio.component';
+import { ListarPrestamosComponent } from './prestamos/listar-prestamos/listar-prestamos.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -22,5 +23,6 @@ export const routes: Routes = [
     { path: 'socios/nuevo', component: NuevoSocioComponent },
     { path: 'socios/listar', component: ListarSocioComponent },
     { path: 'socios/editar/:id', component: EditarSocioComponent },
-    { path: 'prestamos', component: NuevoPrestamoComponent },
+    { path: 'prestamo/nuevo', component: NuevoPrestamoComponent },
+    { path: 'prestamo/listar', component: ListarPrestamosComponent },
 ];

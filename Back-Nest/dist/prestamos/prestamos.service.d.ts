@@ -3,13 +3,11 @@ import { UpdatePrestamoDto } from './dto/update-prestamo.dto';
 import { Prestamo } from './entities/prestamo.entity';
 import { Repository } from 'typeorm';
 import { Socio } from 'src/socios/entities/socio.entity';
-import { SociosService } from 'src/socios/socios.service';
 export declare class PrestamosService {
     private readonly prestamoRepository;
     private readonly socioRepository;
-    private readonly sociosService;
-    constructor(prestamoRepository: Repository<Prestamo>, socioRepository: Repository<Socio>, sociosService: SociosService);
-    create(createPrestamoDto: CreatePrestamoDto): Promise<void>;
+    constructor(prestamoRepository: Repository<Prestamo>, socioRepository: Repository<Socio>);
+    create(createPrestamoDto: CreatePrestamoDto): Promise<Prestamo>;
     findAll(): Promise<Prestamo[]>;
     findOne(id: number): Promise<Prestamo>;
     update(id: number, updatePrestamoDto: UpdatePrestamoDto): Promise<Prestamo>;

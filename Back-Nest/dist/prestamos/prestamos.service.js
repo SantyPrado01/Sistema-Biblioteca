@@ -18,28 +18,38 @@ const typeorm_1 = require("@nestjs/typeorm");
 const prestamo_entity_1 = require("./entities/prestamo.entity");
 const typeorm_2 = require("typeorm");
 const socio_entity_1 = require("../socios/entities/socio.entity");
-const socios_service_1 = require("../socios/socios.service");
 let PrestamosService = class PrestamosService {
-    constructor(prestamoRepository, socioRepository, sociosService) {
+    constructor(prestamoRepository, socioRepository) {
         this.prestamoRepository = prestamoRepository;
         this.socioRepository = socioRepository;
-        this.sociosService = sociosService;
     }
     async create(createPrestamoDto) {
         const libroEnPrestamo = await this.prestamoRepository.findOne({
-            where: { libro: { libroId: createPrestamoDto.libroId }, fechaDevolucion: null },
+            where: {
+                libro: { libroId: createPrestamoDto.libro.libroId },
+                devuelto: false,
+            },
         });
         if (libroEnPrestamo) {
             throw new common_1.HttpException('El libro ya está en préstamo', common_1.HttpStatus.BAD_REQUEST);
         }
         const socio = await this.socioRepository.findOne({
-            where: { socioId: createPrestamoDto.socioId },
+            where: { socioId: createPrestamoDto.socio.socioId },
             relations: ['prestamos'],
         });
         const prestamosActivos = socio.prestamos.filter((prestamo) => prestamo.fechaDevolucion === null);
         if (prestamosActivos.length >= 5) {
             throw new common_1.HttpException('El socio ya tiene demasiados préstamos activos', common_1.HttpStatus.BAD_REQUEST);
         }
+        const nuevoPrestamo = this.prestamoRepository.create({
+            libro: { libroId: createPrestamoDto.libro.libroId },
+            socio: { socioId: createPrestamoDto.socio.socioId },
+            fechaPrestamo: createPrestamoDto.fechaPrestamo,
+            fechaDevolucion: createPrestamoDto.fechaDevolucion,
+            devuelto: false,
+        });
+        await this.prestamoRepository.save(nuevoPrestamo);
+        return nuevoPrestamo;
     }
     findAll() {
         return this.prestamoRepository.find({
@@ -70,7 +80,6 @@ exports.PrestamosService = PrestamosService = __decorate([
     __param(0, (0, typeorm_1.InjectRepository)(prestamo_entity_1.Prestamo)),
     __param(1, (0, typeorm_1.InjectRepository)(socio_entity_1.Socio)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository,
-        socios_service_1.SociosService])
+        typeorm_2.Repository])
 ], PrestamosService);
 //# sourceMappingURL=prestamos.service.js.map
