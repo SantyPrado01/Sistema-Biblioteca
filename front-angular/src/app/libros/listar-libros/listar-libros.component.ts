@@ -67,18 +67,12 @@ export class ListarLibrosComponent {
   }
 
   obtenerFechaDevolucion(libroId: number): Date | null {
-    // Buscar si hay algún préstamo del libro que no ha sido devuelto
     const prestamo = this.prestamo.find(p => p.libro.libroId === libroId && !p.devuelto);
-    
-    // Retornar la fecha de devolución si el préstamo está activo, de lo contrario, null
     return prestamo ? prestamo.fechaDevolucion : null;
 }
-
-  
-
+ 
   filtrarLibros(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
-
     if (value === 'activos') {
       this.librosFiltrados = this.libro.filter(libro => !libro.eliminado && libro.disponible);
     } else {

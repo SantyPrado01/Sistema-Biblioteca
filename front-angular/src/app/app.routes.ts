@@ -11,18 +11,75 @@ import { ListarUsuarioComponent } from './usuarios/listar-usuario/listar-usuario
 import { EditarUsuarioComponent } from './usuarios/editar-usuario/editar-usuario.component';
 import { EditarSocioComponent } from './socios/editar-socio/editar-socio.component';
 import { ListarPrestamosComponent } from './prestamos/listar-prestamos/listar-prestamos.component';
+import { AuthGuard } from './login/auth/auth.guard'; 
 
 export const routes: Routes = [
-    { path: '', component: LoginComponent },
-    { path: 'inicio', component: InicioDefectoComponent },
-    { path: 'usuario/nuevo', component: NuevoUsuarioComponent },
-    { path: 'usuario/listar', component: ListarUsuarioComponent },
-    { path: 'usuario/editar/:id', component: EditarUsuarioComponent },
-    { path: 'libros/nuevo', component: NuevoLibrosComponent },
-    { path: 'libros/listar', component: ListarLibrosComponent },
-    { path: 'socios/nuevo', component: NuevoSocioComponent },
-    { path: 'socios/listar', component: ListarSocioComponent },
-    { path: 'socios/editar/:id', component: EditarSocioComponent },
-    { path: 'prestamo/nuevo', component: NuevoPrestamoComponent },
-    { path: 'prestamo/listar', component: ListarPrestamosComponent },
+    { path: '', component: LoginComponent,},
+    { 
+        path: 'inicio', 
+        component: InicioDefectoComponent, 
+        canActivate:[AuthGuard],
+        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+    },
+    { 
+        path: 'usuario/nuevo', 
+        component: NuevoUsuarioComponent, 
+        canActivate:[AuthGuard],
+        data: { expectedRole: 'Administrador' }
+    },
+    { 
+        path: 'usuario/listar', 
+        component: ListarUsuarioComponent,
+        canActivate:[AuthGuard],
+        data: { expectedRole: 'Administrador' } 
+    },
+    { 
+        path: 'usuario/editar/:id', 
+        component: EditarUsuarioComponent,
+        canActivate:[AuthGuard],
+        data: { expectedRole: 'Administrador' }
+
+     },
+    { 
+        path: 'libros/nuevo', 
+        component: NuevoLibrosComponent,
+        canActivate:[AuthGuard],
+        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+     },
+    { 
+        path: 'libros/listar', 
+        component: ListarLibrosComponent,
+        canActivate:[AuthGuard],
+        data: { expectedRole: ['Administrador', 'Adminstrativo' ]} 
+    },
+    { 
+        path: 'socios/nuevo', 
+        component: NuevoSocioComponent,
+        canActivate:[AuthGuard],
+        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+    },
+    { 
+        path: 'socios/listar', 
+        component: ListarSocioComponent,
+        canActivate:[AuthGuard],
+        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+    },
+    { 
+        path: 'socios/editar/:id', 
+        component: EditarSocioComponent,
+        canActivate:[AuthGuard],
+        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+     },
+    { 
+        path: 'prestamo/nuevo', 
+        component: NuevoPrestamoComponent,
+        canActivate:[AuthGuard],
+        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+     },
+    { 
+        path: 'prestamo/listar', 
+        component: ListarPrestamosComponent,
+        canActivate:[AuthGuard],
+        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+     },
 ];

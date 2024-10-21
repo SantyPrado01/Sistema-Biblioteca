@@ -16,12 +16,13 @@ const libros_module_1 = require("../libros/libros.module");
 const socios_module_1 = require("../socios/socios.module");
 const libro_entity_1 = require("../libros/entities/libro.entity");
 const socios_service_1 = require("../socios/socios.service");
+const pagos_module_1 = require("../pagos/pagos.module");
 let PrestamosModule = class PrestamosModule {
 };
 exports.PrestamosModule = PrestamosModule;
 exports.PrestamosModule = PrestamosModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([prestamo_entity_1.Prestamo, libro_entity_1.Libro]), libros_module_1.LibrosModule, socios_module_1.SociosModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([prestamo_entity_1.Prestamo, libro_entity_1.Libro]), libros_module_1.LibrosModule, socios_module_1.SociosModule, pagos_module_1.PagoModule],
         controllers: [prestamos_controller_1.PrestamosController],
         providers: [prestamos_service_1.PrestamosService, socios_service_1.SociosService],
     })

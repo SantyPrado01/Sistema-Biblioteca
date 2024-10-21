@@ -18,6 +18,7 @@ const usuarios_module_1 = require("./usuarios/usuarios.module");
 const auth_service_1 = require("./auth/auth.service");
 const auth_controller_1 = require("./auth/auth.controller");
 const auth_module_1 = require("./auth/auth.module");
+const pagos_module_1 = require("./pagos/pagos.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -36,7 +37,10 @@ exports.AppModule = AppModule = __decorate([
             }),
             libros_module_1.LibrosModule,
             socios_module_1.SociosModule,
-            prestamos_module_1.PrestamosModule, usuarios_module_1.UsuariosModule, auth_module_1.AuthModule
+            prestamos_module_1.PrestamosModule,
+            usuarios_module_1.UsuariosModule,
+            auth_module_1.AuthModule,
+            pagos_module_1.PagoModule
         ],
         controllers: [app_controller_1.AppController, auth_controller_1.AuthController],
         providers: [app_service_1.AppService, auth_service_1.AuthService],

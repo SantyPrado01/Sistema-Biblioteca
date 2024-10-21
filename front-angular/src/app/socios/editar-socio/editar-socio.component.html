@@ -1,37 +1,64 @@
 <div class="app-container">
-    <app-barra-navegacion></app-barra-navegacion> <!-- Tu barra de navegación -->
-    <div class="content">
-      <div class="create-user-container"> <!-- Cambiar a login-container -->
-        <div class="card"> <!-- Cambiar a card -->
-          <h2>Crear Socio</h2>
-          <p>Por favor ingrese los datos del nuevo socio</p> <!-- Título y descripción -->
-          <form (ngSubmit)="actualizarSocio()">
-  
-            <div class="form-group">
-              <label for="apellido">Apellido</label>
-              <input type="text" id="apellido" [(ngModel)]="apellido" name="apellido" required />
-            </div>
-  
-            <div class="form-group">
-              <label for="nombre">Nombre</label>
-              <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required />
-            </div>
-  
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="text" id="email" [(ngModel)]="email" name="email" required />
-            </div>
-  
-            <div class="form-group">
-              <label for="telefono">Telefono</label>
-              <input type="text" id="telefono" [(ngModel)]="telefono" name="telefono" required />
-            </div>
-  
-            <button type="submit" class="btn-crear-usuario">Actualizar Usuario</button> <!-- Botón estilizado -->
-          </form>
-            <button (click)="cancelar()" class="btn-cancelar">Cancelar</button>
-        </div>
+  <app-barra-navegacion></app-barra-navegacion>
+  <div class="content">
+    <div class="create-user-container">
+      <div class="card">
+        <h2>Visualizar Perfil Socio</h2>
+        <p>Por favor ingrese los nuevos datos del socio</p>
+        <form (ngSubmit)="actualizarSocio()">
+
+          <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" [(ngModel)]="apellido" name="apellido" required />
+          </div>
+
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" [(ngModel)]="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="telefono">Telefono</label>
+            <input type="text" id="telefono" [(ngModel)]="telefono" name="telefono" required />
+          </div>
+
+          <button type="submit" class="btn-crear-usuario">Actualizar Usuario</button>
+        </form>
+        <button (click)="cancelar()" class="btn-cancelar">Cancelar</button>
       </div>
+
+      <div class="info-container">
+        <h3>Información de Pago</h3>
+        <div class="info-table-container"> <!-- Nuevo contenedor para la tabla -->
+          <table>
+            <thead>
+              <tr>
+                <th>ID de Pago</th>
+                <th>Fecha de Facturación</th>
+                <th>Fecha de Vencimiento</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pago of pagosFiltrados">
+                <td>{{ pago.pagoId }}</td>
+                <td>{{ pago.fechaFacturacion | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ pago.fechaVencimiento | date: 'dd/MM/yyyy'}}</td>
+                <td>
+                  <button class="btn-delete" (click)="pagarCuota(pago.pagoId)">💳</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>      
     </div>
   </div>
+</div>
+
   

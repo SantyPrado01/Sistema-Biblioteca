@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const socio_entity_1 = require("./entities/socio.entity");
 const typeorm_2 = require("typeorm");
+const pagos_service_1 = require("../pagos/pagos.service");
 let SociosService = class SociosService {
-    constructor(socioRepository) {
+    constructor(socioRepository, pagoService) {
         this.socioRepository = socioRepository;
+        this.pagoService = pagoService;
     }
     async create(createSocioDto) {
         const userFound = await this.socioRepository.findOne({
@@ -31,7 +33,9 @@ let SociosService = class SociosService {
             return new common_1.HttpException('El Socio ya existe. Prueba nuevamente.', common_1.HttpStatus.CONFLICT);
         }
         const newSocio = this.socioRepository.create(createSocioDto);
-        return await this.socioRepository.save(newSocio);
+        const socioCreado = await this.socioRepository.save(newSocio);
+        await this.pagoService.crearPagoInicial({ socioId: socioCreado.socioId, monto: 1000 });
+        return socioCreado;
     }
     findAll() {
         return this.socioRepository.find();
@@ -60,6 +64,6 @@ exports.SociosService = SociosService;
 exports.SociosService = SociosService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(socio_entity_1.Socio)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository, pagos_service_1.PagoService])
 ], SociosService);
 //# sourceMappingURL=socios.service.js.map

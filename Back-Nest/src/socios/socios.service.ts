@@ -4,11 +4,12 @@ import { UpdateSocioDto } from './dto/update-socio.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Socio } from './entities/socio.entity';
 import { Repository } from 'typeorm';
+import { PagoService } from 'src/pagos/pagos.service';
 
 @Injectable()
 export class SociosService {
 
-  constructor(@InjectRepository(Socio) private readonly socioRepository: Repository<Socio>) {}
+  constructor(@InjectRepository(Socio) private readonly socioRepository: Repository<Socio>, private readonly pagoService: PagoService,) {}
 
   async create(createSocioDto: CreateSocioDto) {
     const userFound = await this.socioRepository.findOne({
@@ -20,7 +21,12 @@ export class SociosService {
       return new HttpException('El Socio ya existe. Prueba nuevamente.', HttpStatus.CONFLICT)
     }
     const newSocio = this.socioRepository.create(createSocioDto);
-    return await this.socioRepository.save(newSocio);
+    const socioCreado = await this.socioRepository.save(newSocio);
+
+    // Crear el pago inicial y los pagos mensuales
+    await this.pagoService.crearPagoInicial({socioId: socioCreado.socioId, monto:1000});
+
+    return socioCreado;
   }
 
   findAll() {

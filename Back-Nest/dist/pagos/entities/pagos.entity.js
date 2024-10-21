@@ -9,46 +9,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Socio = void 0;
+exports.Pago = void 0;
 const typeorm_1 = require("typeorm");
-const prestamo_entity_1 = require("../../prestamos/entities/prestamo.entity");
-const pagos_entity_1 = require("../../pagos/entities/pagos.entity");
-let Socio = class Socio {
+const socio_entity_1 = require("../../socios/entities/socio.entity");
+let Pago = class Pago {
 };
-exports.Socio = Socio;
+exports.Pago = Pago;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Socio.prototype, "socioId", void 0);
+], Pago.prototype, "pagoId", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Socio.prototype, "nombre", void 0);
+    (0, typeorm_1.ManyToOne)(() => socio_entity_1.Socio, socio => socio.pagos),
+    __metadata("design:type", socio_entity_1.Socio)
+], Pago.prototype, "socio", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Socio.prototype, "apellido", void 0);
+    (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
+    __metadata("design:type", Number)
+], Pago.prototype, "monto", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Socio.prototype, "email", void 0);
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Pago.prototype, "fechaFacturacion", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Socio.prototype, "telefono", void 0);
+    (0, typeorm_1.Column)({ type: 'date' }),
+    __metadata("design:type", Date)
+], Pago.prototype, "fechaVencimiento", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => prestamo_entity_1.Prestamo, prestamo => prestamo.socio),
-    __metadata("design:type", Array)
-], Socio.prototype, "prestamos", void 0);
+    (0, typeorm_1.Column)({ type: 'date', nullable: true }),
+    __metadata("design:type", Date)
+], Pago.prototype, "fechaPago", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: false }),
     __metadata("design:type", Boolean)
-], Socio.prototype, "eliminado", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => pagos_entity_1.Pago, pago => pago.socio),
-    __metadata("design:type", Array)
-], Socio.prototype, "pagos", void 0);
-exports.Socio = Socio = __decorate([
+], Pago.prototype, "pagado", void 0);
+exports.Pago = Pago = __decorate([
     (0, typeorm_1.Entity)()
-], Socio);
-//# sourceMappingURL=socio.entity.js.map
+], Pago);
+//# sourceMappingURL=pagos.entity.js.map

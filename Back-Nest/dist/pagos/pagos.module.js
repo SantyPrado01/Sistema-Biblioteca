@@ -6,22 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SociosModule = void 0;
+exports.PagoModule = void 0;
 const common_1 = require("@nestjs/common");
-const socios_service_1 = require("./socios.service");
-const socios_controller_1 = require("./socios.controller");
-const socio_entity_1 = require("./entities/socio.entity");
 const typeorm_1 = require("@nestjs/typeorm");
-const pagos_module_1 = require("../pagos/pagos.module");
-let SociosModule = class SociosModule {
+const pagos_entity_1 = require("./entities/pagos.entity");
+const pagos_service_1 = require("./pagos.service");
+const pagos_controller_1 = require("./pagos.controller");
+const socio_entity_1 = require("../socios/entities/socio.entity");
+let PagoModule = class PagoModule {
 };
-exports.SociosModule = SociosModule;
-exports.SociosModule = SociosModule = __decorate([
+exports.PagoModule = PagoModule;
+exports.PagoModule = PagoModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([socio_entity_1.Socio]), pagos_module_1.PagoModule],
-        controllers: [socios_controller_1.SociosController],
-        providers: [socios_service_1.SociosService],
-        exports: [typeorm_1.TypeOrmModule, SociosModule]
+        imports: [typeorm_1.TypeOrmModule.forFeature([pagos_entity_1.Pago, socio_entity_1.Socio])],
+        providers: [pagos_service_1.PagoService],
+        controllers: [pagos_controller_1.PagoController],
+        exports: [pagos_service_1.PagoService],
     })
-], SociosModule);
-//# sourceMappingURL=socios.module.js.map
+], PagoModule);
+//# sourceMappingURL=pagos.module.js.map
