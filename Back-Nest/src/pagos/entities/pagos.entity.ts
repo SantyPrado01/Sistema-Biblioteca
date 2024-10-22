@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, CreateDateColumn } from 'typeorm';
-import { Socio } from 'src/socios/entities/socio.entity'; 
+import { Socio } from '../../socios/entities/socio.entity'; 
 
 @Entity()
 export class Pago {

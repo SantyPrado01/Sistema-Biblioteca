@@ -18,8 +18,7 @@ export const routes: Routes = [
     { 
         path: 'inicio', 
         component: InicioDefectoComponent, 
-        canActivate:[AuthGuard],
-        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+
     },
     { 
         path: 'usuario/nuevo', 

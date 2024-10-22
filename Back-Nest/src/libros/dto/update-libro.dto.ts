@@ -6,4 +6,5 @@ export class UpdateLibroDto extends PartialType(CreateLibroDto) {
     autor?: string
     categoria?: string
     disponible?: boolean
+    eliminado?:boolean
 }

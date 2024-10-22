@@ -22,27 +22,31 @@ let LibrosService = class LibrosService {
         this.libroRepository = libroRepository;
     }
     async create(createLibroDto) {
-        const userFound = await this.libroRepository.findOne({
+        const libroExistente = await this.libroRepository.findOne({
             where: {
-                titulo: createLibroDto.titulo
-            }
+                titulo: createLibroDto.titulo,
+            },
         });
-        if (userFound) {
-            return new common_1.HttpException('El libro ya existe. Prueba nuevamente.', common_1.HttpStatus.CONFLICT);
+        if (libroExistente) {
+            throw new common_1.HttpException('El libro ya existe. Prueba nuevamente.', common_1.HttpStatus.CONFLICT);
         }
         const nuevoLibro = this.libroRepository.create(createLibroDto);
         return this.libroRepository.save(nuevoLibro);
     }
-    findAll() {
+    async findAll() {
         return this.libroRepository.find();
     }
-    findOne(id) {
-        return this.libroRepository.findOneBy({ libroId: id });
+    async findOne(id) {
+        const libro = await this.libroRepository.findOneBy({ libroId: id });
+        if (!libro) {
+            throw new common_1.HttpException('Libro no encontrado', common_1.HttpStatus.NOT_FOUND);
+        }
+        return libro;
     }
     async update(id, updateLibroDto) {
         const libro = await this.libroRepository.findOneBy({ libroId: id });
         if (!libro) {
-            throw new Error('Libro no encontrado');
+            throw new common_1.HttpException('Libro no encontrado', common_1.HttpStatus.NOT_FOUND);
         }
         Object.assign(libro, updateLibroDto);
         return this.libroRepository.save(libro);
@@ -50,10 +54,11 @@ let LibrosService = class LibrosService {
     async remove(id) {
         const libro = await this.libroRepository.findOneBy({ libroId: id });
         if (!libro) {
-            throw new Error('Libro no encontrado');
+            throw new common_1.HttpException('Libro no encontrado', common_1.HttpStatus.NOT_FOUND);
         }
         libro.eliminado = true;
         await this.libroRepository.save(libro);
+        return libro;
     }
 };
 exports.LibrosService = LibrosService;

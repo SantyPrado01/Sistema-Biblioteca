@@ -1,5 +1,5 @@
 import { Prestamo } from '../../prestamos/entities/prestamo.entity';
-import { Pago } from 'src/pagos/entities/pagos.entity';
+import { Pago } from '../../pagos/entities/pagos.entity';
 export declare class Socio {
     socioId: number;
     nombre: string;

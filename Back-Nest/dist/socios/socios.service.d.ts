@@ -8,7 +8,7 @@ export declare class SociosService {
     private readonly socioRepository;
     private readonly pagoService;
     constructor(socioRepository: Repository<Socio>, pagoService: PagoService);
-    create(createSocioDto: CreateSocioDto): Promise<HttpException | Socio>;
+    create(createSocioDto: CreateSocioDto): Promise<Socio | HttpException>;
     findAll(): Promise<Socio[]>;
     findOne(id: number): Promise<Socio>;
     update(id: number, updateSocioDto: UpdateSocioDto): Promise<Socio>;

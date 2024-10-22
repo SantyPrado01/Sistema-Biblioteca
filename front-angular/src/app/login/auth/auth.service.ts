@@ -19,10 +19,16 @@ export class AuthService {
     return this.httpClient.post<any>(this.LOGIN_URL, {nombreUsuario, contrasena}).pipe(
       tap(response => {
         if(response.token){
-          console.log(response.token);
           this.setToken(response.token);
           this.setRefreshToken(response.refreshToken)
           this.autoRefreshToken();
+          
+          const userRole = this.getUserRole(); // Obtiene el rol del token
+          if (userRole === 'Administrador') {
+            this.router.navigate(['/inicio']);
+          } else if (userRole === 'Administrativo') {
+            this.router.navigate(['/inicio']);
+          }
         }
       })
     )

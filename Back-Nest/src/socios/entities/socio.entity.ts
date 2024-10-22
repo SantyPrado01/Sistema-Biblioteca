@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Prestamo } from '../../prestamos/entities/prestamo.entity';
-import { Pago } from 'src/pagos/entities/pagos.entity';
+import { Pago } from '../../pagos/entities/pagos.entity'; 
 
 @Entity()
 export class Socio {

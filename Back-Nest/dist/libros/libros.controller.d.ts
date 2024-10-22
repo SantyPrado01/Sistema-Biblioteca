@@ -4,9 +4,9 @@ import { UpdateLibroDto } from './dto/update-libro.dto';
 export declare class LibrosController {
     private readonly librosService;
     constructor(librosService: LibrosService);
-    create(createLibroDto: CreateLibroDto): Promise<import("./entities/libro.entity").Libro | import("@nestjs/common").HttpException>;
+    create(createLibroDto: CreateLibroDto): Promise<import("./entities/libro.entity").Libro>;
     findAll(): Promise<import("./entities/libro.entity").Libro[]>;
     findOne(id: string): Promise<import("./entities/libro.entity").Libro>;
     update(id: string, updateLibroDto: UpdateLibroDto): Promise<import("./entities/libro.entity").Libro>;
-    remove(id: string): Promise<void>;
+    remove(id: string): Promise<import("./entities/libro.entity").Libro>;
 }

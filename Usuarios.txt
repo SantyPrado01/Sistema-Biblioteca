@@ -1,0 +1,10 @@
+Usuarios:
+
+nombreUsuario: Administrador
+Contraseña: Admin1234
+Rol: Administrador
+
+nombreUsuario:SPRADO
+Contraseña: Biblioteca1234
+Rol: Administrativo
+

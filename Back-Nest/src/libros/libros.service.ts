@@ -10,30 +10,36 @@ export class LibrosService {
   constructor(@InjectRepository(Libro) private readonly libroRepository: Repository<Libro>) {}
 
   async create(createLibroDto: CreateLibroDto) {
-    const userFound = await this.libroRepository.findOne({
-      where:{
-          titulo: createLibroDto.titulo
-      }
-    })
-    if (userFound){
-      return new HttpException('El libro ya existe. Prueba nuevamente.', HttpStatus.CONFLICT)
+    const libroExistente = await this.libroRepository.findOne({
+      where: {
+        titulo: createLibroDto.titulo,
+      },
+    });
+    
+    if (libroExistente) {
+      throw new HttpException('El libro ya existe. Prueba nuevamente.', HttpStatus.CONFLICT);
     }
+
     const nuevoLibro = this.libroRepository.create(createLibroDto);
     return this.libroRepository.save(nuevoLibro);
   }
 
-  findAll() {
+  async findAll() {
     return this.libroRepository.find();
   }
 
-  findOne(id: number) {
-    return this.libroRepository.findOneBy({ libroId: id });
+  async findOne(id: number) {
+    const libro = await this.libroRepository.findOneBy({ libroId: id });
+    if (!libro) {
+      throw new HttpException('Libro no encontrado', HttpStatus.NOT_FOUND);
+    }
+    return libro;
   }
 
   async update(id: number, updateLibroDto: UpdateLibroDto) {
     const libro = await this.libroRepository.findOneBy({ libroId: id });
     if (!libro) {
-      throw new Error('Libro no encontrado');
+      throw new HttpException('Libro no encontrado', HttpStatus.NOT_FOUND);
     }
     Object.assign(libro, updateLibroDto);
     return this.libroRepository.save(libro);
@@ -42,9 +48,10 @@ export class LibrosService {
   async remove(id: number) {
     const libro = await this.libroRepository.findOneBy({ libroId: id });
     if (!libro) {
-      throw new Error('Libro no encontrado');
+      throw new HttpException('Libro no encontrado', HttpStatus.NOT_FOUND);
     }
     libro.eliminado = true;  // Borrado lógico
     await this.libroRepository.save(libro);
+    return libro; 
   }
 }

@@ -1,4 +1,4 @@
-import { Socio } from 'src/socios/entities/socio.entity';
+import { Socio } from '../../socios/entities/socio.entity';
 export declare class Pago {
     pagoId: number;
     socio: Socio;
