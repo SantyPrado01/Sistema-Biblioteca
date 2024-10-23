@@ -4,7 +4,7 @@ import { UpdateSocioDto } from './dto/update-socio.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Socio } from './entities/socio.entity';
 import { Repository } from 'typeorm';
-import { PagoService } from 'src/pagos/pagos.service';
+import { PagoService } from '../../src/pagos/pagos.service';
 
 @Injectable()
 export class SociosService {
@@ -22,8 +22,6 @@ export class SociosService {
     }
     const newSocio = this.socioRepository.create(createSocioDto);
     const socioCreado = await this.socioRepository.save(newSocio);
-
-    // Crear el pago inicial y los pagos mensuales
     await this.pagoService.crearPagoInicial({socioId: socioCreado.socioId, monto:1000});
 
     return socioCreado;

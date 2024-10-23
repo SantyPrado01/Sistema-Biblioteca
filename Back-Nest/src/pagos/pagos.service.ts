@@ -4,7 +4,8 @@ import { Repository } from 'typeorm';
 import { Pago } from './entities/pagos.entity'; 
 import { CreatePagoDto } from './dto/create-pagos.dto';
 import { UpdatePagoDto } from './dto/update-pagos.dto';
-import { Socio } from 'src/socios/entities/socio.entity';
+import { Socio } from '../../src/socios/entities/socio.entity';
+import { SociosService } from '../../src/socios/socios.service';
 
 @Injectable()
 export class PagoService {

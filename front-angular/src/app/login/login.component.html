@@ -6,7 +6,7 @@
       <form (ngSubmit)="inicioSesion()">
         <div class="form-group">
           <label for="email">Nombre de Usuario</label>
-          <input type="email" id="email" [(ngModel)]="nombreUsuario" name="email" required />
+          <input type="string" id="nombreUsuario" [(ngModel)]="nombreUsuario" name="nombreUsuario" required />
         </div>
         <div class="form-group">
           <label for="password">Contrasena</label>
@@ -18,7 +18,7 @@
   </div>
   <div class="login-right">
     <div class="image-container">
-      <h1>Bienvenido<br> Sistema Ficticio Biblioteca Nacional</h1>
+      <h1>Bienvenido<br> BookLend</h1>
       <img src="./fondo-login.png">
     </div>
   </div>

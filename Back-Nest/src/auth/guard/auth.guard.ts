@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private readonly jwtService: JwtService,
-    private readonly reflector: Reflector // Necesitamos esto para acceder a los metadatos de la ruta
+    private readonly reflector: Reflector 
   ){}
 
   async canActivate( context: ExecutionContext): Promise<boolean> {

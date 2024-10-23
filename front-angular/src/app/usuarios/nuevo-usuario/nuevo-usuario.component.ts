@@ -17,24 +17,50 @@ export class NuevoUsuarioComponent {
   contrasena: string = '';
   rol: string = '';
   eliminado: boolean = false;
+  mensajeExito: string = '';  // Variable para mensaje de éxito
+  mensajeError: string = '';
 
   constructor(private loginService: LoginService, private router: Router) {}
 
   crearUsuario(): void {
-    const nuevoUsuario = {
-      nombreUsuario: this.nombreUsuario,
-      contrasena: this.contrasena,
-      rol: this.rol,
-      eliminado: this.eliminado,
-    };
+    if (this.nombreUsuario && this.contrasena && this.rol) {
+      const nuevoUsuario = {
+        nombreUsuario: this.nombreUsuario,
+        contrasena: this.contrasena,
+        rol: this.rol,
+        eliminado: this.eliminado,
+      };
 
-    this.loginService.register(nuevoUsuario).subscribe({
-      next: () => {
-        this.router.navigate(['/usuarios']);
-      },
-      error: (err) => {
-        console.error('Error al guardar el empleado:', err);
-      }
-    });
+      this.loginService.register(nuevoUsuario).subscribe({
+        next: () => {
+          this.mensajeExito = 'Usuario Creado Con Éxito';  // Establece el mensaje de éxito
+          this.mensajeError = '';  // Limpia el mensaje de error
+          this.limpiarCampos()
+          setTimeout(() => {
+            this.router.navigate(['/usuario/listar']); // Redirige después de un breve retraso
+          }, 2000);
+        },
+        error: (err) => {
+          this.mensajeError = 'Error al crear el usuario';  // Manejo de errores
+          console.error('Error al guardar el empleado:', err);
+        }
+      });
+    } else {
+      this.mensajeError = 'Por favor complete todos los campos.';  // Mensaje si faltan datos
+    }
+  }
+
+  limpiarCampos(): void {
+    this.nombreUsuario = '';
+    this.contrasena = '';
+    this.rol = '';
+    this.eliminado = false;
+  }
+
+
+  camposValidos(): boolean {
+    return this.nombreUsuario.trim() !== '' &&
+           this.contrasena.trim() !== '' &&
+           this.rol.trim() !== '';
   }
 }

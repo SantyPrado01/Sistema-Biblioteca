@@ -18,6 +18,9 @@ export class EditarUsuarioComponent implements OnInit {
   contrasena: string = '';
   rol: string = '';
   eliminado: boolean = false;
+  mensajeExito: string = '';  // Variable para mensaje de éxito
+  mensajeError: string = '';
+  
 
   constructor(
     private usuarioService: UsuarioService, 
@@ -61,10 +64,13 @@ export class EditarUsuarioComponent implements OnInit {
       this.http.patch<any>(`http://localhost:3000/auth/${usuarioId}`, usuarioActualizado).subscribe({
         next: (response) => {
           console.log('Usuario actualizado con éxito:', response);
-          alert('Usuario actualizado con éxito');
-          this.router.navigate(['/usuario/listar']);
+          this.mensajeExito = 'Usuario Actualizado Con Éxito';
+          setTimeout(() => {
+            this.router.navigate(['/usuario/listar']);
+          }, 2000);
         },
         error: (err) => {
+          this.mensajeError = 'Error al Actualizar el Usuario';
           console.error('Error al actualizar el usuario:', err);
         }
       });

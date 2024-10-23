@@ -9,6 +9,9 @@ export class Socio {
   socioId: number;
 
   @Column()
+  nroDocumento: string;
+
+  @Column()
   nombre: string;
 
   @Column()

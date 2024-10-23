@@ -1,15 +1,56 @@
 .app-container {
-    display: flex; /* Para alinear la navbar y el contenido horizontalmente */
-  }
-  
-  .barra-navegacion {
-    width: 200px; /* Ancho de la barra de navegación */
-    height: 100%; /* Ocupa toda la altura */
-  }
-  
-  .content {
-    flex: 1; /* Ocupa el espacio restante */
-    padding: 20px; /* Agrega un poco de espaciado alrededor */
-    margin-left: 200px; /* Deja espacio para la barra de navegación */
-  }
-  
+  display: flex; 
+}
+
+.barra-navegacion {
+  width: 200px; 
+  height: 100%;
+}
+
+.content {
+  flex: 1; 
+  padding: 20px;
+  margin-left: 200px; 
+}
+
+.titulo-principal {
+  text-align: center; 
+  margin-bottom: 2em; 
+}
+
+.tables-container {
+  display: flex; 
+  justify-content: center; 
+}
+
+.table-container {
+  width: 45%; 
+  margin-right: 1.5em;
+  margin-left: 1.5em;
+}
+
+.info-table-container {
+  max-height: 400px; 
+  overflow-y: auto; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+}
+
+table {
+  width: 100%; 
+  border-collapse: collapse; 
+}
+
+th,
+td {
+  padding: 10px; 
+  text-align: left; 
+  border-bottom: 1px solid #ddd; 
+}
+
+th {
+  background-color: #f2f2f2; 
+}
+.btn-edit{
+  margin: 0.4em;
+}

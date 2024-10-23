@@ -19,12 +19,15 @@ import { Usuario } from '../../usuarios/models/usuario.models';
 export class EditarSocioComponent {
 
   socioId: number = 0;
+  nroDocumento: string = '';
   apellido: string = '';
   nombre: string = '';
   email: string = '';
   telefono: string = '';
   eliminado: boolean = false;
   isLoading = true;
+  mensajeExito: string = '';
+  filtroSeleccionado: string = 'impagos';
 
   pago: Pago[] = [];
   pagosFiltrados: Pago[] = [];
@@ -45,6 +48,7 @@ export class EditarSocioComponent {
       this.cargarPagos(socioId)
     }
   }
+
 
   cargarPagos(socioId: string): void {
     this.http.get<any>(`http://localhost:3000/pagos/socio/${socioId}`).subscribe({
@@ -71,13 +75,12 @@ export class EditarSocioComponent {
     console.log('Pagos filtrados:', this.pagosFiltrados); // Verifica los pagos filtrados
   }
   
-  
-  
 
   cargarSocio(socioId: string): void {
     this.http.get<any>(`http://localhost:3000/socios/${socioId}`).subscribe({
       next: (data) => {
         this.socio = data;
+        this.nroDocumento = data.nroDocumento;
         this.nombre = data.nombre;
         this.apellido = data.apellido;
         this.email = data.email;
@@ -94,6 +97,7 @@ export class EditarSocioComponent {
     const socioId = this.route.snapshot.paramMap.get('id');
     if (socioId) {
       const socioActualizado = {
+        nroDocumento: this.nroDocumento,
         apellido: this.apellido,
         nombre: this.nombre,
         email: this.email,
@@ -103,8 +107,10 @@ export class EditarSocioComponent {
       this.http.patch<any>(`http://localhost:3000/socios/${socioId}`, socioActualizado).subscribe({
         next: (response) => {
           console.log('Socio actualizado con éxito:', response);
-          alert('Socio actualizado con éxito');
-          this.router.navigate(['/socios/listar']);
+          this.mensajeExito = 'Socio Actualizado con Exito';
+          setTimeout(() => {
+            this.router.navigate(['/socios/listar']);
+          },2000);
         },
         error: (err) => {
           console.error('Error al actualizar el Socio:', err);
@@ -114,10 +120,11 @@ export class EditarSocioComponent {
   }
 
   pagarCuota(pagoId: number): void{
-    this.http.patch(`http://localhost:3000/pagos/${pagoId}`, {}).subscribe({
+    this.http.patch(`http://localhost:3000/pagos/${pagoId}`, {pagado: true}).subscribe({
       next: (response) => {
+        alert('Pago realizado con éxito');
         console.log('Pago realizado con éxito', response);
-        
+        this.ngOnInit()
       },
       error: (err) => {
         console.error('Error al procesar el pago', err);

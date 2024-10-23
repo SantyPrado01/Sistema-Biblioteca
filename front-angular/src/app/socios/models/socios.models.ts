@@ -1,13 +1,15 @@
 export class Socio{
 
     socioId: number;
+    nroDocumento: string;
     nombre: string;
     apellido: string;
     email: string;
     telefono:string;
     eliminado:boolean;
 
-    constructor(nombre: string, apellido: string, email: string, telefono: string, eliminado: boolean, socioId:number){
+    constructor(nroDocumento: string, nombre: string, apellido: string, email: string, telefono: string, eliminado: boolean, socioId:number){
+        this.nroDocumento = nroDocumento
         this.socioId = socioId;
         this.nombre = nombre;
         this.apellido = apellido;

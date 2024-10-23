@@ -5,11 +5,12 @@ import { Router, RouterModule } from '@angular/router';
 import { Socio } from '../models/socios.models';
 import { SocioService } from '../service/socio.service';
 import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-listar-socio',
   standalone: true,
-  imports: [BarraNavegacionComponent, CommonModule, RouterModule],
+  imports: [BarraNavegacionComponent, CommonModule, RouterModule, FormsModule],
   templateUrl: './listar-socio.component.html',
   styleUrl: './listar-socio.component.css'
 })
@@ -17,6 +18,7 @@ export class ListarSocioComponent {
   socio: Socio[] = [];
   sociosFiltrados: Socio[] = [];
   isLoading = true;
+  searchQuery: string = '';
 
   constructor(private socioService: SocioService, private http: HttpClient, private router: Router) {}
 
@@ -45,6 +47,12 @@ export class ListarSocioComponent {
       this.sociosFiltrados = this.socio.filter(socio => !socio.eliminado);
     } else {
       this.sociosFiltrados = this.socio; // Muestra todos los usuarios
+    }
+    if (this.searchQuery) {
+      this.sociosFiltrados = this.sociosFiltrados.filter(socio =>
+        socio.nombre.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        socio.apellido.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
     }
   }
 

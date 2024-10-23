@@ -10,21 +10,24 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [FormsModule, CommonModule, BarraNavegacionComponent],
   templateUrl: './nuevo-socio.component.html',
-  styleUrl: './nuevo-socio.component.css'
+  styleUrls: ['./nuevo-socio.component.css'] // Corrige 'styleUrl' a 'styleUrls'
 })
 export class NuevoSocioComponent {
   socioId: number = 0;
+  nroDocumento: string = '';
   apellido: string = '';
   nombre: string = '';
   email: string = '';
   telefono: string = '';
   eliminado: boolean = false;
+  mensajeExito: string = ''; // Variable para el mensaje de éxito
 
-  constructor(private socioService: SocioService, private router: Router){}
+  constructor(private socioService: SocioService, private router: Router) {}
 
-  crearSocio(): void{
+  crearSocio(): void {
     const nuevoSocio = {
       socioId: this.socioId,
+      nroDocumento: this.nroDocumento,
       apellido: this.apellido,
       nombre: this.nombre,
       email: this.email,
@@ -33,13 +36,25 @@ export class NuevoSocioComponent {
     };
     
     this.socioService.create(nuevoSocio).subscribe({
-      next:() =>{
-        this.router.navigate(['/socios']);
+      next: () => {
+        this.mensajeExito = 'Socio creado con éxito'; // Mensaje de éxito
+        this.limpiarCampos(); // Llama a la función para limpiar los campos
+        // Redireccionar a la lista de socios después de un pequeño delay
+        setTimeout(() => {
+          this.router.navigate(['/socios/listar']);
+        }, 2000); // Redirige después de 2 segundos
       },
-      error: (err) =>{
-        console.error('Error al guardar el socio: ', err)
+      error: (err) => {
+        console.error('Error al guardar el socio: ', err);
       }
-    })
+    });
   }
 
+  limpiarCampos(): void {
+    this.nroDocumento = '';
+    this.apellido = '';
+    this.nombre = '';
+    this.email = '';
+    this.telefono = '';
+  }
 }

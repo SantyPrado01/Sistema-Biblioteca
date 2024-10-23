@@ -115,7 +115,7 @@ export class NuevoPrestamoComponent implements OnInit {
               next: (updateResponse) => {
                 console.log('Libro actualizado con éxito:', updateResponse);
                 alert('Préstamo creado con éxito');
-                this.router.navigate(['/prestamos']); 
+                this.router.navigate(['/prestamo/listar']); 
               },
               error: (err) => {
                 console.error('Error al actualizar el libro:', err);

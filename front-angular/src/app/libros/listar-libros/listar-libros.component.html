@@ -31,10 +31,10 @@
               <td>{{ libro.titulo }}</td>
               <td>{{ libro.autor }}</td>
               <td>{{ libro.disponible ? 'Disponible' : 'No Disponible' }}</td>
-              <td>{{ obtenerFechaDevolucion(libro.libroId) ? (obtenerFechaDevolucion(libro.libroId) | date:'shortDate') : '' }}</td>
+              <td>{{ obtenerFechaDevolucion(libro.libroId) ? (obtenerFechaDevolucion(libro.libroId) | date: 'dd/MM/yyyy') : '' }}</td>
 
               <td>
-                <a class="btn-edit">✏️</a>
+                <a class="btn-edit" [routerLink]="['/libros/editar/', libro.libroId]">✏️</a>
                 <button class="btn-delete" (click)="eliminarLibro(libro)">🗑️</button>
                 <button class="btn-edit" (click)="prestamoNuevo(libro)">📝</button> 
               </td>

@@ -1,6 +1,64 @@
 <div class="app-container">
-    <app-barra-navegacion></app-barra-navegacion> <!-- Tu barra de navegación -->
-    <div class="content">
-      <h1>Inicio por Defecto</h1><!-- Aquí se renderizarán las rutas -->
+  <app-barra-navegacion></app-barra-navegacion> <!-- Tu barra de navegación -->
+  <div class="content">
+    <h1 class="titulo-principal">Bienvenido {{username}}</h1><!-- Título centrado -->
+    <div class="tables-container">
+      <div class="table-container">
+        <h4>Pagos</h4>
+        <div class="info-table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID de Pago</th>
+                <th>Socio</th>
+                <th>Fecha de Facturación</th>
+                <th>Fecha de Vencimiento</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pago of pago">
+                <td>{{ pago.pagoId }}</td>
+                <td>{{ pago.socio.apellido }}, {{ pago.socio.nombre }}</td>
+                <td>{{ pago.fechaFacturacion | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ pago.fechaVencimiento | date: 'dd/MM/yyyy' }}</td>
+                <td>
+                  <button class="btn-delete" (click)="pagarCuota(pago.pagoId)">💳</button>
+                  <a class="btn-edit" [routerLink]="['/socios/editar/', pago.socio.socioId]">✏️</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-container">
+        <h4>Préstamos</h4>
+        <div class="info-table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID de Préstamo</th>
+                <th>Socio</th>
+                <th>Libro</th>
+                <th>Fecha de Devolución</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prestamo of prestamo">
+                <td>{{ prestamo.prestamoId }}</td>
+                <td>{{ prestamo.socio.apellido }}, {{ prestamo.socio.nombre }}</td>
+                <td>{{ prestamo.libro.titulo }}</td>
+                <td>{{ prestamo.fechaDevolucion | date: 'dd/MM/yyyy' }}</td>
+                <td>
+                  <button class="btn-delete" (click)="marcarDevolucion(prestamo.prestamoId)">✅</button>
+                  <a class="btn-edit" [routerLink]="['/socios/editar/', prestamo.socio.socioId]">✏️</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

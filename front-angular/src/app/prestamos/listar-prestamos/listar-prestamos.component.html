@@ -11,10 +11,10 @@
               <select id="user-filter" (change)="filtrarPrestamos($event)">
                 <option value="pendientes">Pendientes</option>
                 <option value="devueltos">Devueltos</option>
-                <option value="">Todos</option>
+                <option value="todos">Todos</option>
               </select>
             </div>
-            <input type="text" [(ngModel)]="searchQuery"  placeholder="Buscar por nombre o autor" />
+            <input type="text" [(ngModel)]="searchQuery"  placeholder="Buscar por nombre o autor" (change)="filtrarPrestamos($event)" />
         </div>
           
         <table>
@@ -36,9 +36,7 @@
                 <td>{{ prestamo.fechaPrestamo | date: 'dd/MM/yyyy' }}</td> <!-- Formato de fecha -->
                 <td>{{ prestamo.fechaDevolucion | date: 'dd/MM/yyyy' }}</td> <!-- Formato de fecha -->
                 <td>
-                <button class="btn-edit" (click)="marcarDevolucion(prestamo.prestamoId)">✅</button>
-                <button class="btn-delete" >🗑️</button>
-                <button class="btn-edit" >📝</button> 
+                  <button *ngIf="!prestamo.devuelto" class="btn-edit" (click)="marcarDevolucion(prestamo.prestamoId)">✅</button>
               </td>
             </tr>
           </tbody>

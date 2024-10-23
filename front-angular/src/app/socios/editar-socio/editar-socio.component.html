@@ -1,64 +1,130 @@
 <div class="app-container">
   <app-barra-navegacion></app-barra-navegacion>
+  
   <div class="content">
     <div class="create-user-container">
       <div class="card">
-        <h2>Visualizar Perfil Socio</h2>
-        <p>Por favor ingrese los nuevos datos del socio</p>
-        <form (ngSubmit)="actualizarSocio()">
+        <h2>Actualizar Socio</h2>
+        <p>Por favor ingrese los Nuevos datos del socio</p>
+
+        <form (ngSubmit)="actualizarSocio()" #socioForm="ngForm">
+          <div class="form-group">
+            <label for="nroDocumento">Nro. Documento</label>
+            <input
+              type="text"
+              id="nroDocumento"
+              [(ngModel)]="nroDocumento"
+              name="nroDocumento"
+              required
+              pattern="^[0-9]*$" 
+            />
+            <div *ngIf="socioForm.controls['nroDocumento']?.invalid && (socioForm.controls['nroDocumento']?.touched || socioForm.submitted)">
+              <small class="error-text">El número de documento es obligatorio y debe ser numérico.</small>
+            </div>
+          </div>
 
           <div class="form-group">
             <label for="apellido">Apellido</label>
-            <input type="text" id="apellido" [(ngModel)]="apellido" name="apellido" required />
+            <input
+              type="text"
+              id="apellido"
+              [(ngModel)]="apellido"
+              name="apellido"
+              required
+              pattern="^[a-zA-Z\s]*$" 
+            />
+            <div *ngIf="socioForm.controls['apellido']?.invalid && (socioForm.controls['apellido']?.touched || socioForm.submitted)">
+              <small class="error-text">El apellido es obligatorio y debe contener solo letras.</small>
+            </div>
           </div>
 
           <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required />
+            <input
+              type="text"
+              id="nombre"
+              [(ngModel)]="nombre"
+              name="nombre"
+              required
+              pattern="^[a-zA-Z\s]*$" 
+            />
+            <div *ngIf="socioForm.controls['nombre']?.invalid && (socioForm.controls['nombre']?.touched || socioForm.submitted)">
+              <small class="error-text">El nombre es obligatorio y debe contener solo letras.</small>
+            </div>
           </div>
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" id="email" [(ngModel)]="email" name="email" required />
+            <input
+              type="email"
+              id="email"
+              [(ngModel)]="email"
+              name="email"
+              required
+              email
+            />
+            <div *ngIf="socioForm.controls['email']?.invalid && (socioForm.controls['email']?.touched || socioForm.submitted)">
+              <small class="error-text">El email es obligatorio y debe ser válido.</small>
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="telefono">Telefono</label>
-            <input type="text" id="telefono" [(ngModel)]="telefono" name="telefono" required />
+            <label for="telefono">Teléfono</label>
+            <input
+              type="text"
+              id="telefono"
+              [(ngModel)]="telefono"
+              name="telefono"
+              required
+              pattern="^[0-9]*$"
+            />
+            <div *ngIf="socioForm.controls['telefono']?.invalid && (socioForm.controls['telefono']?.touched || socioForm.submitted)">
+              <small class="error-text">El teléfono es obligatorio y debe ser numérico.</small>
+            </div>
           </div>
 
-          <button type="submit" class="btn-crear-usuario">Actualizar Usuario</button>
+          <button
+            type="submit"
+            class="btn-crear-usuario"
+            [disabled]="!socioForm.valid"
+          >
+            Crear Socio
+          </button>
+
+          <!-- Mensaje de éxito -->
+          <div *ngIf="mensajeExito" class="alert alert-success" style="margin-top: 20px;">
+            {{ mensajeExito }}
+          </div>
         </form>
         <button (click)="cancelar()" class="btn-cancelar">Cancelar</button>
       </div>
-
-      <div class="info-container">
-        <h3>Información de Pago</h3>
-        <div class="info-table-container"> <!-- Nuevo contenedor para la tabla -->
-          <table>
-            <thead>
-              <tr>
-                <th>ID de Pago</th>
-                <th>Fecha de Facturación</th>
-                <th>Fecha de Vencimiento</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let pago of pagosFiltrados">
-                <td>{{ pago.pagoId }}</td>
-                <td>{{ pago.fechaFacturacion | date: 'dd/MM/yyyy'}}</td>
-                <td>{{ pago.fechaVencimiento | date: 'dd/MM/yyyy'}}</td>
-                <td>
-                  <button class="btn-delete" (click)="pagarCuota(pago.pagoId)">💳</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>      
     </div>
+
+    <div class="info-container">
+      <h3>Información de Pago</h3>
+
+      <div class="info-table-container"> <!-- Nuevo contenedor para la tabla -->
+        <table>
+          <thead>
+            <tr>
+              <th>ID de Pago</th>
+              <th>Fecha de Facturación</th>
+              <th>Fecha de Vencimiento</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pago of pagosFiltrados">
+              <td>{{ pago.pagoId }}</td>
+              <td>{{ pago.fechaFacturacion | date: 'dd/MM/yyyy'}}</td>
+              <td>{{ pago.fechaVencimiento | date: 'dd/MM/yyyy'}}</td>
+              <td>
+                <button class="btn-delete" (click)="pagarCuota(pago.pagoId)">💳</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>      
   </div>
 </div>
-
-  

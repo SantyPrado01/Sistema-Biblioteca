@@ -12,6 +12,7 @@ import { EditarUsuarioComponent } from './usuarios/editar-usuario/editar-usuario
 import { EditarSocioComponent } from './socios/editar-socio/editar-socio.component';
 import { ListarPrestamosComponent } from './prestamos/listar-prestamos/listar-prestamos.component';
 import { AuthGuard } from './login/auth/auth.guard'; 
+import { EditarLibrosComponent } from './libros/editar-libros/editar-libros.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent,},
@@ -36,7 +37,7 @@ export const routes: Routes = [
         path: 'usuario/editar/:id', 
         component: EditarUsuarioComponent,
         canActivate:[AuthGuard],
-        data: { expectedRole: 'Administrador' }
+        data: { expectedRole: ['Administrador', 'Adminstrativo' ] }
 
      },
     { 
@@ -52,10 +53,16 @@ export const routes: Routes = [
         data: { expectedRole: ['Administrador', 'Adminstrativo' ]} 
     },
     { 
+        path: 'libros/editar/:id', 
+        component: EditarLibrosComponent,
+        canActivate:[AuthGuard],
+        data: { expectedRole: ['Administrador', 'Adminstrativo' ]} 
+    },
+    { 
         path: 'socios/nuevo', 
         component: NuevoSocioComponent,
         canActivate:[AuthGuard],
-        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+        data: { expectedRole: 'Administrador' }
     },
     { 
         path: 'socios/listar', 

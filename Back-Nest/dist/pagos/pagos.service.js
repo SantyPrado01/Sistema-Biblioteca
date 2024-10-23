@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const pagos_entity_1 = require("./entities/pagos.entity");
-const socio_entity_1 = require("../socios/entities/socio.entity");
+const socio_entity_1 = require("../../src/socios/entities/socio.entity");
 let PagoService = class PagoService {
     constructor(pagoRepository, socioRepository) {
         this.pagoRepository = pagoRepository;

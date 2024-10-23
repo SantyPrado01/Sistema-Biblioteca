@@ -24,7 +24,7 @@ export class ListarPrestamosComponent {
   librosFiltrados: Libro[] = [];
   isLoading = true;
   searchQuery: string = '';
-  filtroSeleccionado: string = 'pendientes';
+  filtroSeleccionado: string = 'todos';
 
   constructor(
     private libroService: LibroService,

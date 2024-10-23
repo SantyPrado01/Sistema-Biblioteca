@@ -5,14 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { Libro } from '../models/libros.models';
 import { LibroService } from '../service/libros.service';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Prestamo } from '../../prestamos/models/prestamo.models';
 import { PrestamoService } from '../../prestamos/service/prestamo.service';
 
 @Component({
   selector: 'app-listar-libros',
   standalone: true,
-  imports: [BarraNavegacionComponent, CommonModule, FormsModule],
+  imports: [BarraNavegacionComponent, CommonModule, FormsModule, RouterModule],
   templateUrl: './listar-libros.component.html',
   styleUrl: './listar-libros.component.css'
 })
@@ -31,9 +31,16 @@ export class ListarLibrosComponent {
   ) {}
 
   prestamoNuevo(selectedLibro: Libro) {
+    // Verificar si el libro está disponible antes de permitir el préstamo
+    if (!selectedLibro.disponible) {
+      alert('Este libro no está disponible para préstamo.');
+      return;
+    }
+
     this.libroService.setLibro(selectedLibro); // Almacenar el libro en el servicio
     this.router.navigate(['/prestamo/nuevo']);
   }
+  
   ngOnInit(): void {
     this.cargarLibros();
     this.cargarPrestamos();  // Cargamos los préstamos también

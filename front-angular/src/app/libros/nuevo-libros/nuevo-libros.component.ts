@@ -19,6 +19,7 @@ export class NuevoLibrosComponent {
   categoria: string = '';
   eliminado: boolean = false;
   disponible: boolean = true;
+  mensajeExito: string = '';
 
   constructor(private libroService: LibroService, private router: Router) {}
 
@@ -34,12 +35,22 @@ export class NuevoLibrosComponent {
 
     this.libroService.create(nuevoLibro).subscribe({
       next: () => {
-        this.router.navigate(['/libros/listar']);
+        this.mensajeExito = 'Libro creado con éxito';
+        this.limpiarCampos();
+        setTimeout(() => {
+          this.router.navigate(['/libros/listar']);
+        },2000)
+        
       },
       error: (err) => {
         console.error('Error al guardar el libro:', err);
       }
     });
+  }
+  limpiarCampos(): void {
+    this.titulo = '';
+    this.autor = '';
+    this.categoria = '';
   }
 
 }

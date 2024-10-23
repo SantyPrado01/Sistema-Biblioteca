@@ -1,37 +1,102 @@
 <div class="app-container">
-    <app-barra-navegacion></app-barra-navegacion> <!-- Tu barra de navegación -->
-    <div class="content">
-      <div class="create-user-container"> <!-- Cambiar a login-container -->
-        <div class="card"> <!-- Cambiar a card -->
-          <h2>Crear Socio</h2>
-          <p>Por favor ingrese los datos del nuevo socio</p> <!-- Título y descripción -->
-          <form (ngSubmit)="crearSocio()">
-  
-            <div class="form-group">
-              <label for="apellido">Apellido</label>
-              <input type="text" id="apellido" [(ngModel)]="apellido" name="apellido" required />
+  <app-barra-navegacion></app-barra-navegacion>
+  <div class="content">
+    <div class="create-user-container">
+      <div class="card">
+        <h2>Crear Socio</h2>
+        <p>Por favor ingrese los datos del nuevo socio</p>
+
+        <form (ngSubmit)="crearSocio()" #socioForm="ngForm">
+          <div class="form-group">
+            <label for="nroDocumento">Nro. Documento</label>
+            <input
+              type="text"
+              id="nroDocumento"
+              [(ngModel)]="nroDocumento"
+              name="nroDocumento"
+              required
+              pattern="^[0-9]*$" 
+            />
+            <div *ngIf="socioForm.controls['nroDocumento']?.invalid && (socioForm.controls['nroDocumento']?.touched || socioForm.submitted)">
+              <small class="error-text">El número de documento es obligatorio y debe ser numérico.</small>
             </div>
-  
-            <div class="form-group">
-              <label for="nombre">Nombre</label>
-              <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required />
+          </div>
+
+          <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input
+              type="text"
+              id="apellido"
+              [(ngModel)]="apellido"
+              name="apellido"
+              required
+              pattern="^[a-zA-Z\s]*$" 
+            />
+            <div *ngIf="socioForm.controls['apellido']?.invalid && (socioForm.controls['apellido']?.touched || socioForm.submitted)">
+              <small class="error-text">El apellido es obligatorio y debe contener solo letras.</small>
             </div>
-  
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="text" id="email" [(ngModel)]="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input
+              type="text"
+              id="nombre"
+              [(ngModel)]="nombre"
+              name="nombre"
+              required
+              pattern="^[a-zA-Z\s]*$" 
+            />
+            <div *ngIf="socioForm.controls['nombre']?.invalid && (socioForm.controls['nombre']?.touched || socioForm.submitted)">
+              <small class="error-text">El nombre es obligatorio y debe contener solo letras.</small>
             </div>
-  
-            <div class="form-group">
-              <label for="telefono">Telefono</label>
-              <input type="text" id="telefono" [(ngModel)]="telefono" name="telefono" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              [(ngModel)]="email"
+              name="email"
+              required
+              email
+            />
+            <div *ngIf="socioForm.controls['email']?.invalid && (socioForm.controls['email']?.touched || socioForm.submitted)">
+              <small class="error-text">El email es obligatorio y debe ser válido.</small>
             </div>
-  
-            <button type="submit" class="btn-crear-usuario">Crear Usuario</button> <!-- Botón estilizado -->
-          </form>
+          </div>
+
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input
+              type="text"
+              id="telefono"
+              [(ngModel)]="telefono"
+              name="telefono"
+              required
+              pattern="^[0-9]*$"
+            />
+            <div *ngIf="socioForm.controls['telefono']?.invalid && (socioForm.controls['telefono']?.touched || socioForm.submitted)">
+              <small class="error-text">El teléfono es obligatorio y debe ser numérico.</small>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn-crear-usuario"
+            [disabled]="!socioForm.valid"
+          >
+            Crear Socio
+          </button>
+
+        <!-- Mensaje de éxito -->
+        <div *ngIf="mensajeExito" class="alert alert-success" style="margin-top: 20px;">
+          {{ mensajeExito }}
         </div>
+
+        </form>
       </div>
     </div>
   </div>
-  
-  
+</div>
