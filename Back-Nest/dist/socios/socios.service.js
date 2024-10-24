@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const socio_entity_1 = require("./entities/socio.entity");
 const typeorm_2 = require("typeorm");
-const pagos_service_1 = require("../../src/pagos/pagos.service");
+const pagos_service_1 = require("../pagos/pagos.service");
 let SociosService = class SociosService {
     constructor(socioRepository, pagoService) {
         this.socioRepository = socioRepository;
@@ -30,7 +30,7 @@ let SociosService = class SociosService {
             }
         });
         if (userFound) {
-            return new common_1.HttpException('El Socio ya existe. Prueba nuevamente.', common_1.HttpStatus.CONFLICT);
+            throw new common_1.HttpException('El Socio ya existe. Prueba nuevamente.', common_1.HttpStatus.CONFLICT);
         }
         const newSocio = this.socioRepository.create(createSocioDto);
         const socioCreado = await this.socioRepository.save(newSocio);
@@ -40,8 +40,12 @@ let SociosService = class SociosService {
     findAll() {
         return this.socioRepository.find();
     }
-    findOne(id) {
-        return this.socioRepository.findOneBy({ socioId: id });
+    async findOne(id) {
+        const socio = await this.socioRepository.findOneBy({ socioId: id });
+        if (!socio) {
+            throw new common_1.HttpException('Socio no encontrado', common_1.HttpStatus.NOT_FOUND);
+        }
+        return socio;
     }
     async update(id, updateSocioDto) {
         const socio = await this.socioRepository.findOneBy({ socioId: id });
@@ -54,7 +58,7 @@ let SociosService = class SociosService {
     async remove(id) {
         const socio = await this.socioRepository.findOneBy({ socioId: id });
         if (!socio) {
-            throw new Error('Socio no encontrado');
+            throw new common_1.HttpException('Socio no encontrado', common_1.HttpStatus.NOT_FOUND);
         }
         socio.eliminado = true;
         await this.socioRepository.save(socio);

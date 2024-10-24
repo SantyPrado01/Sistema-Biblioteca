@@ -1,10 +1,8 @@
 <div class="app-container">
-    <app-barra-navegacion></app-barra-navegacion> <!-- Tu barra de navegación -->
+    <app-barra-navegacion></app-barra-navegacion> 
     <div class="content">
       <div class="users-container">
-        <h2>Lista de Libros</h2>
-  
-        <!-- Opciones de filtro -->
+        <h2>Listado de Prestamos</h2>
         <div class="filter-options">
             <label for="user-filter">Mostrar: </label>
             <div class="select-container">
@@ -31,10 +29,10 @@
           <tbody>
             <tr *ngFor="let prestamo of prestamosFiltrados">
                 <td>{{ prestamo.prestamoId }}</td>
-                <td>{{ prestamo.libro.titulo }} - {{ prestamo.libro.autor }}</td> <!-- Título y autor del libro -->
-                <td>{{ prestamo.socio.nombre }} {{ prestamo.socio.apellido }}</td> <!-- Nombre completo del socio -->
-                <td>{{ prestamo.fechaPrestamo | date: 'dd/MM/yyyy' }}</td> <!-- Formato de fecha -->
-                <td>{{ prestamo.fechaDevolucion | date: 'dd/MM/yyyy' }}</td> <!-- Formato de fecha -->
+                <td>{{ prestamo.libro.titulo }} - {{ prestamo.libro.autor }}</td> 
+                <td>{{ prestamo.socio.nombre }} {{ prestamo.socio.apellido }}</td> 
+                <td>{{ prestamo.fechaPrestamo | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ prestamo.fechaDevolucion | date: 'dd/MM/yyyy' }}</td> 
                 <td>
                   <button *ngIf="!prestamo.devuelto" class="btn-edit" (click)="marcarDevolucion(prestamo.prestamoId)">✅</button>
               </td>

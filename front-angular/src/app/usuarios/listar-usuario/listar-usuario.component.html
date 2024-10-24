@@ -26,7 +26,7 @@
           <tr *ngFor="let usuario of usuariosFiltrados">
             <td>{{ usuario.nombreUsuario }}</td>
             <td>{{ usuario.rol }}</td>
-            <td>{{ usuario.eliminado }}</td>
+            <td>{{ usuario.eliminado ? 'Inactivo' : 'Activo' }}</td>
             <td>
               <a class="btn-edit" [routerLink]="['/usuario/editar', usuario.usuarioId]">✏️</a>
               <button class="btn-delete" (click)="eliminarUsuario(usuario)">🗑️</button>

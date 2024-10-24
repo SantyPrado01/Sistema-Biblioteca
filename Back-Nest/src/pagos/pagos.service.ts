@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Pago } from './entities/pagos.entity'; 
 import { CreatePagoDto } from './dto/create-pagos.dto';
 import { UpdatePagoDto } from './dto/update-pagos.dto';
-import { Socio } from '../../src/socios/entities/socio.entity';
+import { Socio } from 'src/socios/entities/socio.entity'; 
 import { SociosService } from '../../src/socios/socios.service';
 
 @Injectable()
@@ -14,7 +14,6 @@ export class PagoService {
     @InjectRepository(Socio) private socioRepository: Repository<Socio>,
   ) {}
 
-  // Crear el pago inicial para un socio
   async crearPagoInicial(createPagoDto: CreatePagoDto): Promise<Pago> {
     const socio = await this.socioRepository.findOne({ where: { socioId: createPagoDto.socioId } });
     if (!socio) {
@@ -23,11 +22,11 @@ export class PagoService {
 
     const fechaFacturacion = new Date();
     const fechaVencimiento = new Date();
-    fechaVencimiento.setDate(fechaFacturacion.getDate() + 10); // Plazo de 10 días para el pago inicial
+    fechaVencimiento.setDate(fechaFacturacion.getDate() + 10); 
 
     const pagoInicial = this.pagoRepository.create({
       socio: socio,
-      monto: createPagoDto.monto || 1000,  // Usa el monto del DTO o uno por defecto
+      monto: createPagoDto.monto || 1000, 
       fechaFacturacion: fechaFacturacion,
       fechaVencimiento: fechaVencimiento,
       pagado: false,
@@ -35,13 +34,11 @@ export class PagoService {
 
     await this.pagoRepository.save(pagoInicial);
 
-    // Generar los pagos mensuales por adelantado
     await this.generarPagosMensuales(socio);
 
     return pagoInicial;
   }
 
-  // Generar pagos mensuales para el socio
   async generarPagosMensuales(socio: Socio): Promise<void> {
     const pagosFuturos: Pago[] = [];
     const fechaInicio = new Date(); 

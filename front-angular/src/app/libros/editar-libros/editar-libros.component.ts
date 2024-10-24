@@ -38,6 +38,7 @@ export class EditarLibrosComponent {
     this.http.get<any>(`http://localhost:3000/libros/${libroId}`).subscribe({
       next:(data) =>{
         this.libro = data;
+        this.libroId = data.libroId
         this.titulo = data.titulo;
         this.autor = data.autor;
         this.categoria = data.categoria;

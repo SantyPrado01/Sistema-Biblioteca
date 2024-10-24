@@ -28,6 +28,7 @@ export class LoginComponent {
                 const eliminado = payload.eliminado;
                 if (eliminado) {
                     alert('Tu cuenta ha sido desactivada. No puedes iniciar sesión.');
+                    return
                 } else {
                     localStorage.setItem('token', token);
                     this.router.navigate(['/inicio']);

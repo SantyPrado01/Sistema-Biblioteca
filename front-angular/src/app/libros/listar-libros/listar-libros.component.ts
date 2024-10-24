@@ -83,7 +83,7 @@ export class ListarLibrosComponent {
     if (value === 'activos') {
       this.librosFiltrados = this.libro.filter(libro => !libro.eliminado && libro.disponible);
     } else {
-      this.librosFiltrados = this.libro; // Muestra todos los libros
+      this.librosFiltrados = this.libro.filter(libro => !libro.eliminado); // Muestra todos los libros
     }
   }
 

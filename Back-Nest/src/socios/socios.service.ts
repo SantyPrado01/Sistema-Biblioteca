@@ -4,7 +4,7 @@ import { UpdateSocioDto } from './dto/update-socio.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Socio } from './entities/socio.entity';
 import { Repository } from 'typeorm';
-import { PagoService } from '../../src/pagos/pagos.service';
+import { PagoService } from 'src/pagos/pagos.service'; 
 
 @Injectable()
 export class SociosService {
@@ -18,7 +18,7 @@ export class SociosService {
       }
     })
     if(userFound){
-      return new HttpException('El Socio ya existe. Prueba nuevamente.', HttpStatus.CONFLICT)
+      throw new HttpException('El Socio ya existe. Prueba nuevamente.', HttpStatus.CONFLICT)
     }
     const newSocio = this.socioRepository.create(createSocioDto);
     const socioCreado = await this.socioRepository.save(newSocio);
@@ -31,8 +31,12 @@ export class SociosService {
     return this.socioRepository.find();
   }
 
-  findOne(id: number) {
-    return this.socioRepository.findOneBy({ socioId: id });
+  async findOne(id: number): Promise<Socio> {
+    const socio = await this.socioRepository.findOneBy({ socioId: id });
+    if (!socio) {
+      throw new HttpException('Socio no encontrado', HttpStatus.NOT_FOUND);
+    }
+    return socio;
   }
 
   async update(id: number, updateSocioDto: UpdateSocioDto): Promise<Socio> {
@@ -47,7 +51,7 @@ export class SociosService {
   async remove(id: number): Promise<void> {
     const socio = await this.socioRepository.findOneBy({ socioId: id });
     if (!socio) {
-      throw new Error('Socio no encontrado');
+      throw new HttpException('Socio no encontrado', HttpStatus.NOT_FOUND);
     }
     socio.eliminado = true;  // Borrado lógico
     await this.socioRepository.save(socio);
