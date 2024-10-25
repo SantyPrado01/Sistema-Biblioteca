@@ -88,7 +88,7 @@
             class="btn-crear-usuario"
             [disabled]="!socioForm.valid"
           >
-            Crear Socio
+            Actualizar Socio
           </button>
 
           <!-- Mensaje de éxito -->
@@ -108,6 +108,7 @@
           <thead>
             <tr>
               <th>ID de Pago</th>
+              <th>Monto</th>
               <th>Fecha de Facturación</th>
               <th>Fecha de Vencimiento</th>
               <th>Acciones</th>
@@ -116,6 +117,7 @@
           <tbody>
             <tr *ngFor="let pago of pagosFiltrados">
               <td>{{ pago.pagoId }}</td>
+              <td>{{ pago.monto }}</td>
               <td>{{ pago.fechaFacturacion | date: 'dd/MM/yyyy'}}</td>
               <td>{{ pago.fechaVencimiento | date: 'dd/MM/yyyy'}}</td>
               <td>

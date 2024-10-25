@@ -15,22 +15,20 @@ export class AuthGuard implements CanActivate {
 
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['']);
-      return false; // Bloquea el acceso
+      return false; 
     }
 
     if (Array.isArray(expectedRoles)) {
       if (!expectedRoles.includes(userRole)) {
-        this.router.navigate(['']); // Redirige si no coincide
+        this.router.navigate(['']); 
         return false;
       }
     } else {
-      // Si es un solo rol, compara directamente
       if (userRole !== expectedRoles) {
         this.router.navigate(['']); // Redirige si no coincide
         return false;
       }
     }
-
-    return true; // Permite el acceso si el rol coincide
+    return true; 
   }
 }

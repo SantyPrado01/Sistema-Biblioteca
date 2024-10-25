@@ -19,7 +19,6 @@ export const routes: Routes = [
     { 
         path: 'inicio', 
         component: InicioDefectoComponent, 
-
     },
     { 
         path: 'usuario/nuevo', 
@@ -37,26 +36,26 @@ export const routes: Routes = [
         path: 'usuario/editar/:id', 
         component: EditarUsuarioComponent,
         canActivate:[AuthGuard],
-        data: { expectedRole: ['Administrador', 'Adminstrativo' ] }
+        data: { expectedRole: ['Administrador', 'Administrativo' ] }
 
      },
     { 
         path: 'libros/nuevo', 
         component: NuevoLibrosComponent,
         canActivate:[AuthGuard],
-        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+        data: { expectedRole: ['Administrador', 'Administrativo' ]}
      },
     { 
         path: 'libros/listar', 
         component: ListarLibrosComponent,
         canActivate:[AuthGuard],
-        data: { expectedRole: ['Administrador', 'Adminstrativo' ]} 
+        data: { expectedRole: ['Administrador', 'Administrativo' ]} 
     },
     { 
         path: 'libros/editar/:id', 
         component: EditarLibrosComponent,
         canActivate:[AuthGuard],
-        data: { expectedRole: ['Administrador', 'Adminstrativo' ]} 
+        data: { expectedRole: ['Administrador', 'Administrativo' ]} 
     },
     { 
         path: 'socios/nuevo', 
@@ -68,24 +67,24 @@ export const routes: Routes = [
         path: 'socios/listar', 
         component: ListarSocioComponent,
         canActivate:[AuthGuard],
-        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+        data: { expectedRole: ['Administrador', 'Administrativo' ]}
     },
     { 
         path: 'socios/editar/:id', 
         component: EditarSocioComponent,
         canActivate:[AuthGuard],
-        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+        data: { expectedRole: ['Administrador', 'Administrativo' ]}
      },
     { 
         path: 'prestamo/nuevo', 
         component: NuevoPrestamoComponent,
         canActivate:[AuthGuard],
-        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+        data: { expectedRole: ['Administrador', 'Administrativo' ]}
      },
     { 
         path: 'prestamo/listar', 
         component: ListarPrestamosComponent,
         canActivate:[AuthGuard],
-        data: { expectedRole: ['Administrador', 'Adminstrativo' ]}
+        data: { expectedRole: ['Administrador', 'Administrativo' ]}
      },
 ];

@@ -33,20 +33,20 @@ export class NuevoUsuarioComponent {
 
       this.loginService.register(nuevoUsuario).subscribe({
         next: () => {
-          this.mensajeExito = 'Usuario Creado Con Éxito';  // Establece el mensaje de éxito
-          this.mensajeError = '';  // Limpia el mensaje de error
+          this.mensajeExito = 'Usuario Creado Con Éxito'; 
+          this.mensajeError = '';  
           this.limpiarCampos()
           setTimeout(() => {
-            this.router.navigate(['/usuario/listar']); // Redirige después de un breve retraso
+            this.router.navigate(['/usuario/listar']); 
           }, 2000);
         },
         error: (err) => {
-          this.mensajeError = 'Error al crear el usuario';  // Manejo de errores
+          this.mensajeError = 'Error al crear el usuario';  
           console.error('Error al guardar el empleado:', err);
         }
       });
     } else {
-      this.mensajeError = 'Por favor complete todos los campos.';  // Mensaje si faltan datos
+      this.mensajeError = 'Por favor complete todos los campos.'; 
     }
   }
 

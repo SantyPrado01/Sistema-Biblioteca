@@ -61,7 +61,6 @@ describe('LibrosService', () => {
     it('Debería lanzar una excepción de conflicto si el libro ya existe', async () => {
       mockRepository.findOne.mockResolvedValueOnce(mockLibro); // Simula que el libro ya existe
   
-      // Verifica que se lance una excepción de tipo HttpException con el mensaje correcto
       await expect(service.create(mockLibroDto)).rejects.toThrow(
         expect.objectContaining({
           name: 'HttpException',
@@ -75,7 +74,7 @@ describe('LibrosService', () => {
       mockRepository.save.mockResolvedValueOnce(mockLibro); // Simular que se guarda el nuevo libro
   
       const result = await service.create(mockLibroDto);
-      expect(result).toEqual(mockLibro); // Asegúrate de que el resultado sea el libro que simulas
+      expect(result).toEqual(mockLibro); 
     });
   });
   
@@ -91,7 +90,7 @@ describe('LibrosService', () => {
     it('Deberia devolver un array vacio si no existen libros.', async () => {
       mockRepository.find.mockResolvedValueOnce([]);
       const result = await service.findAll();
-      expect(result).toEqual([]); // Verifica que retorne un array vacío
+      expect(result).toEqual([]); 
     });
   });
 
